@@ -28,15 +28,21 @@ claude mcp add --transport sse strudelMcp https://strudel-llm.mcp.mathplosion.co
 - **Codex CLI**: `codex-cli`
 - Or any other LLM command-line interface
 
-**4. Get your Strudel session ID:**
+**4. Set up LLM documentation:**
+- **Important**: The Remote MCP Server is intentionally minimal and contains no documentation
+- This allows you to choose and customize the documentation your LLM uses
+- Have your LLM review the `docs/` directory which contains curated Strudel documentation for LLMs
+- Also direct your LLM to explore the official [Strudel website](https://strudel.cc/) for comprehensive reference
+- You can add your own documentation files to the `docs/` directory for specific LLM training
+
+**5. Get your Strudel session ID:**
 - Visit https://strudel-llm.mcp.mathplosion.com/strudel
 - You'll see a Session ID displayed on the page (e.g., "fox8" or "blue42")
 - Copy this Session ID - you'll provide it to your LLM when you start working with Strudel
 
-**5. Review the documentation:**
-- The `docs/` directory contains curated documentation for LLMs to understand Strudel
-- LLMs should also reference the official [Strudel website](https://strudel.cc/) for additional context
-- You can add your own documentation files to the `docs/` directory for LLM reference
+**6. Begin collaborative composition:**
+- Provide the session ID to your LLM
+- Start creating music together using the anchor framework methodology!
 
 ## What This Repository Provides
 
