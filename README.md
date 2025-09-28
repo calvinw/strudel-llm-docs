@@ -12,6 +12,10 @@ cd strudel-llm-docs
 
 **2. Install the Remote Strudel MCP Server:**
 
+The Remote MCP Server is located at: https://strudel-llm.mcp.mathplosion.com/sse
+
+We show the installation process for Claude Code below, but the process is similar for other LLM CLI tools.
+
 *Option A: Using the included script:*
 ```bash
 ./install_strudel_mcp_claude.sh
@@ -23,10 +27,11 @@ claude mcp add --transport sse strudelMcp https://strudel-llm.mcp.mathplosion.co
 ```
 
 **3. Start your LLM CLI tool:**
-- **Claude Code**: `claude`
-- **Gemini CLI**: `gemini-cli`
-- **Codex CLI**: `codex-cli`
-- Or any other LLM command-line interface
+```bash
+claude
+```
+
+If you are using another LLM CLI tool, start your CLI as normal after installing the Remote MCP Server above.
 
 **4. Set up LLM documentation:**
 - **Important**: The Remote MCP Server is intentionally minimal and contains no documentation
