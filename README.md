@@ -1,27 +1,39 @@
 # Strudel Live Coding Composition Project
 
-A repository designed for LLM-assisted music composition using [Strudel](https://strudel.cc/), a browser-based live coding environment that ports TidalCycles pattern language to JavaScript.
+A repository designed for collaborative music composition between humans and LLMs using [Strudel](https://strudel.cc/), a browser-based live coding environment that ports TidalCycles pattern language to JavaScript.
 
 ## Getting Started
 
 **1. Clone this repository:**
 ```bash
-git clone https://github.com/YOUR_USERNAME/strudel-llm-docs.git
+git clone https://github.com/calvinw/strudel-llm-docs.git
 cd strudel-llm-docs
 ```
 
-**2. Start your LLM CLI tool:**
+**2. Install the Remote Strudel MCP Server:**
+
+*Option A: Using the included script:*
+```bash
+./install_strudel_mcp_claude.sh
+```
+
+*Option B: Manual installation (if you prefer not to use the script):*
+```bash
+claude mcp add --transport sse strudelMcp https://strudel-llm.mcp.mathplosion.com/sse
+```
+
+**3. Start your LLM CLI tool:**
 - **Claude Code**: `claude`
 - **Gemini CLI**: `gemini-cli`
 - **Codex CLI**: `codex-cli`
 - Or any other LLM command-line interface
 
-**3. Install the remote Strudel MCP server:**
-```bash
-./install_strudel_mcp_claude.sh
-```
+**4. Get your Strudel session ID:**
+- Visit https://strudel-llm.mcp.mathplosion.com/strudel
+- You'll see a Session ID displayed on the page (e.g., "fox8" or "blue42")
+- Copy this Session ID - you'll provide it to your LLM when you start working with Strudel
 
-**4. Review the documentation:**
+**5. Review the documentation:**
 - The `docs/` directory contains curated documentation for LLMs to understand Strudel
 - LLMs should also reference the official [Strudel website](https://strudel.cc/) for additional context
 - You can add your own documentation files to the `docs/` directory for LLM reference
@@ -30,17 +42,17 @@ cd strudel-llm-docs
 
 This repository contains **documentation and examples designed for LLMs** to understand and assist with Strudel composition. The included composition examples demonstrate traditional music theory concepts implemented through code.
 
-## Integration with Strudel MCP
+## Integration with Remote Strudel MCP Server
 
-This project is designed to work with the **Strudel MCP (Model Context Protocol) server**, which enables direct integration between AI assistants and live Strudel sessions:
+This project is designed to work with the **Remote Strudel MCP Server**, which enables direct integration between LLMs and live Strudel sessions:
 
-- **MCP Server**: https://strudel-llm.mcp.mathplosion.com/sse
+- **Remote MCP Server**: https://strudel-llm.mcp.mathplosion.com/sse
 - **Web Interface**: https://strudel-llm.mcp.mathplosion.com/strudel
 
-The MCP allows you to:
+The Remote MCP Server allows you to:
 - Send code directly to a browser Strudel session
 - Get real-time feedback on compositions
-- Iterate on musical ideas collaboratively with AI
+- Iterate on musical ideas collaboratively with LLMs
 
 ## Based on Strudel for LLM Experimentation
 
@@ -48,7 +60,7 @@ This work builds on **[strudel-llm-mirror](https://github.com/calvinw/strudel-ll
 
 ## Quick Start
 
-1. **Install the MCP server** (if using Claude Code):
+1. **Install the Remote MCP Server** (if using Claude Code):
    ```bash
    ./install_strudel_mcp_claude.sh
    ```
