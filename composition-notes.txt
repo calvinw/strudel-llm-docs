@@ -1,0 +1,9 @@
+Make a stack with 4 instruments in the key desired.
+
+The 1st and 2nd instrument should have 4 steps and have notes in each step from the scale chosen. These two instruments should have notes that come from chords for that key and so they harmonize.
+
+The 3rd and 4th instruments will harmonize with instrument 1 and 2 on every 3rd step of their 12 steps. So first step 1 will harmonize with the first step in instrument 1 and then the 4th step will harmonize with step 2 of instrument 1 and 2. 
+
+Remember when instruments have a number of steps they all fit into the same cycle so the instruments 3 and 4 are playing three times as fast as instrument 1 and 2. 
+
+First create version that has these "anchor" notes matching for all 4 instruments and then fill in the rest of the notes in instrument 3 and 4 with rests for now. 
