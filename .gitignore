@@ -4,6 +4,11 @@ bak/
 # Claude Code settings
 .claude/
 
+# Generated HTML files
+README.html
+*.html
+README_files/
+
 # OS generated files
 .DS_Store
 .DS_Store?
