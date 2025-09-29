@@ -1,4 +1,4 @@
-# Strudel Live Coding Composition Project
+# Strudel LLM Docs
 
 A repository designed for collaborative music composition between humans and LLMs using [Strudel](https://strudel.cc/), a browser-based live coding environment that ports TidalCycles pattern language to JavaScript.
 
