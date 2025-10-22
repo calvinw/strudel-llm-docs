@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "strudel": {
+      "url": "https://strudel-llm.mcp.mathplosion.com/sse"
+    }
+  }
+}
