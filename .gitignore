@@ -1,8 +1,9 @@
 # Backup directory
 bak/
 
-# Claude Code settings
+# Claude Code settings (except settings.json which is shared)
 .claude/
+!.claude/settings.json
 
 # Generated HTML files
 README.html
