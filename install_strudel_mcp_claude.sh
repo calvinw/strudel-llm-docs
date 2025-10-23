@@ -6,9 +6,6 @@ set -e
 
 echo "🔧 Installing REMOTE Strudel MCP server..."
 
-echo "🗑️ Removing existing strudelMcp server..."
-claude mcp remove strudelMcp 2>/dev/null || echo "  (strudelMcp not found - skipping)"
-
 echo "⚙️ Adding REMOTE SSE server..."
 claude mcp add --transport sse strudelMcp https://strudel-llm.mcp.mathplosion.com/sse
 
