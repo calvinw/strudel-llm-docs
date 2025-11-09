@@ -1,0 +1,580 @@
+API Reference
+This is the long list of functions you can use. Remember that you don't need to remember all of those and that you can already make music with a small set of functions!
+
+
+absoluteOrientationAlpha
+Synonyms: absOriA, absOriZ, absoluteOrientationZ
+
+The device's absolute orientation alpha value ranges from 0 to 1.
+
+
+n(absoluteOrientationAlpha.segment(4).range(0,7)).scale("C:minor")
+absoluteOrientationBeta
+Synonyms: absOriB, absOriX, absoluteOrientationX
+
+The device's absolute orientation beta value ranges from 0 to 1.
+
+
+n(absoluteOrientationBeta.segment(4).range(0,7)).scale("C:minor")
+absoluteOrientationGamma
+Synonyms: absOriG, absOriY, absoluteOrientationY
+
+The device's absolute orientation gamma value ranges from 0 to 1.
+
+
+n(absoluteOrientationGamma.segment(4).range(0,7)).scale("C:minor")
+accelerate
+A pattern of numbers that speed up (or slow down) samples while they play. Currently only supported by osc / superdirt.
+
+
+amount : number | Pattern - acceleration.
+s("sax").accelerate("<0 1 2 4 8 16>").slow(2).osc()
+accelerationX
+Synonyms: accX
+
+The accelerometer's x-axis value ranges from 0 to 1.
+
+
+n(accelerationX.segment(4).range(0,7)).scale("C:minor")
+accelerationY
+Synonyms: accY
+
+The accelerometer's y-axis value ranges from 0 to 1.
+
+
+n(accelerationY.segment(4).range(0,7)).scale("C:minor")
+accelerationZ
+Synonyms: accZ
+
+The accelerometer's z-axis value ranges from 0 to 1.
+
+
+n(accelerationZ.segment(4).range(0,7)).scale("C:minor")
+add
+Assumes a pattern of numbers. Adds the given number to each item in the pattern.
+
+
+// Here, the triad 0, 2, 4 is shifted by different amounts
+n("0 2 4".add("<0 3 4 0>")).scale("C:major")
+// Without add, the equivalent would be:
+// n("<[0 2 4] [3 5 7] [4 6 8] [0 2 4]>").scale("C:major")
+// You can also use add with notes:
+note("c3 e3 g3".add("<0 5 7 0>"))
+// Behind the scenes, the notes are converted to midi numbers:
+// note("48 52 55".add("<0 5 7 0>"))
+addVoicings
+Adds a new custom voicing dictionary.
+
+
+name : string - identifier for the voicing dictionary
+dictionary : Object - maps chord symbol to possible voicings
+range : Array - min, max note
+addVoicings('cookie', {
+  7: ['3M 7m 9M 12P 15P', '7m 10M 13M 16M 19P'],
+  '^7': ['3M 6M 9M 12P 14M', '7M 10M 13M 16M 19P'],
+  m7: ['8P 11P 14m 17m 19P', '5P 8P 11P 14m 17m'],
+  m7b5: ['3m 5d 8P 11P 14m', '5d 8P 11P 14m 17m'],
+  o7: ['3m 6M 9M 11A 15P'],
+  '7alt': ['3M 7m 10m 13m 15P'],
+  '7#11': ['7m 10m 13m 15P 17m'],
+}, ['C3', 'C6'])
+"<C^7 A7 Dm7 G7>".voicings('cookie').note()
+adsr
+ADSR envelope: Combination of Attack, Decay, Sustain, and Release.
+
+
+time : number | Pattern - attack time in seconds
+time : number | Pattern - decay time in seconds
+gain : number | Pattern - sustain level (0 to 1)
+time : number | Pattern - release time in seconds
+note("[c3 bb2 f3 eb3]*2").sound("sawtooth").lpf(600).adsr(".1:.1:.5:.2")
+aliasBank
+Register an alias for a bank of sounds. Optionally accepts a single argument map of bank aliases. Optionally accepts a single argument string of a path to a JSON file containing bank aliases.
+
+
+bank : string - The bank to alias
+alias : string - The alias to use for the bank
+allTransforms
+Applies a function to all the running patterns. Note that the patterns are groups together into a single stack before the function is applied. This is probably what you want, but see each for a version that applies the function to each pattern separately.
+
+$: sound("bd - cp sd")
+$: sound("hh*8")
+all(fast("<2 3>"))
+$: sound("bd - cp sd")
+$: sound("hh*8")
+all(x => x.pianoroll())
+
+almostAlways
+Shorthand for .sometimesBy(0.9, fn)
+
+
+s("hh*8").almostAlways(x=>x.speed("0.5"))
+almostNever
+Shorthand for .sometimesBy(0.1, fn)
+
+
+s("hh*8").almostNever(x=>x.speed("0.5"))
+always
+Shorthand for .sometimesBy(1, fn) (always calls fn)
+
+
+s("hh*8").always(x=>x.speed("0.5"))
+amp
+Like gain, but linear.
+
+
+amount : number | Pattern - gain.
+s("bd*8").amp(".1*2 .5 .1*2 .5 .1 .5").osc()
+appBoth
+When this method is called on a pattern of functions, it matches its haps with those in the given pattern of values. A new pattern is returned, with each matching value applied to the corresponding function.
+
+In this _appBoth variant, where timespans of the function and value haps are not the same but do intersect, the resulting hap has a timespan of the intersection. This applies to both the part and the whole timespan.
+
+
+pat_val : Pattern
+appLeft
+As with appBoth, but the whole timespan is not the intersection, but the timespan from the function of patterns that this method is called on. In practice, this means that the pattern structure, including onsets, are preserved from the pattern of functions (often referred to as the left hand or inner pattern).
+
+
+pat_val : Pattern
+appRight
+As with appLeft, but whole timespans are instead taken from the pattern of values, i.e. structure is preserved from the right hand/outer pattern.
+
+
+pat_val : Pattern
+appWhole
+Assumes 'this' is a pattern of functions, and given a function to resolve wholes, applies a given pattern of values to that pattern of functions.
+
+
+whole_func : function
+func : function
+apply
+Like layer, but with a single function:
+
+
+"<c3 eb3 g3>".scale('C minor').apply(scaleTranspose("0,2,4")).note()
+applyGradualLowpass
+Applies a constantly changing lowpass filter to the given sound.
+
+
+input : AudioBuffer
+lpFreqStart : number
+lpFreqEnd : number
+lpFreqEndAt : number
+callback : function - May be called immediately within the current execution context, or later.
+applyHannWindow
+Apply Hann window in-place
+
+
+arp
+Selects indices in in stacked notes.
+
+
+note("<[c,eb,g]!2 [c,f,ab] [d,f,ab]>")
+.arp("0 [0,2] 1 [0,2]")
+arpWith
+Selects indices in in stacked notes.
+
+
+note("<[c,eb,g]!2 [c,f,ab] [d,f,ab]>")
+.arpWith(haps => haps[2])
+arrange
+Allows to arrange multiple patterns together over multiple cycles. Takes a variable number of arrays with two elements specifying the number of cycles and the pattern to use.
+
+
+arrange(
+  [4, "<c a f e>(3,8)"],
+  [2, "<g a>(5,8)"]
+).note()
+as
+Sets properties in a batch.
+
+
+mapping : String | Array - the control names that are set
+"c:.5 a:1 f:.25 e:.8".as("note:clip")
+"{0@2 0.25 0 0.5 .3 .5}%8".as("begin").s("sax_vib").clip(1)
+attack
+Synonyms: att
+
+Amplitude envelope attack time: Specifies how long it takes for the sound to reach its peak value, relative to the onset.
+
+
+attack : number | Pattern - time in seconds.
+note("c3 e3 f3 g3").attack("<0 .1 .5>")
+bank
+Select the sound bank to use. To be used together with s. The bank name (+ "_") will be prepended to the value of s.
+
+
+bank : string | Pattern - the name of the bank
+s("bd sd [~ bd] sd").bank('RolandTR909') // = s("RolandTR909_bd RolandTR909_sd")
+beat
+creates a structure pattern from divisions of a cycle especially useful for creating rhythms
+
+
+s("bd").beat("0,7,10", 16)
+s("sd").beat("4,12", 16)
+begin
+a pattern of numbers from 0 to 1. Skips the beginning of each sample, e.g. 0.25 to cut off the first quarter from each sample.
+
+
+amount : number | Pattern - between 0 and 1, where 1 is the length of the sample
+samples({ rave: 'rave/AREUREADY.wav' }, 'github:tidalcycles/dirt-samples')
+s("rave").begin("<0 .25 .5 .75>").fast(2)
+berlin
+Generates a continuous pattern of [berlin noise](conceived by Jame Coyne and Jade Rowland as a joke but turned out to be surprisingly cool and useful, like perlin noise but with sawtooth waves), in the range 0..1.
+
+
+// ascending arpeggios
+n("0!16".add(berlin.fast(4).mul(14))).scale("d:minor")
+binary
+Creates a pattern from a binary number.
+
+
+n : number - input number to convert to binary
+"hh".s().struct(binary(5))
+// "hh".s().struct("1 0 1")
+binaryN
+Creates a pattern from a binary number, padded to n bits long.
+
+
+n : number - input number to convert to binary
+nBits : number - pattern length, defaults to 16
+"hh".s().struct(binaryN(55532, 16))
+// "hh".s().struct("1 1 0 1 1 0 0 0 1 1 1 0 1 1 0 0")
+bite
+Splits a pattern into the given number of slices, and plays them according to a pattern of slice numbers. Similar to slice, but slices up patterns rather than sound samples.
+
+
+number : number - of slices
+slices : number - to play
+note("0 1 2 3 4 5 6 7".scale('c:mixolydian'))
+.bite(4, "3 2 1 0")
+sound("bd - bd bd*2, - sd:6 - sd:5 sd:1 - [- sd:2] -, hh [- cp:7]")
+  .bank("RolandTR909").speed(1.2)
+  .bite(4, "0 0 [1 2] <3 2> 0 0 [2 1] 3")
+bpattack
+Synonyms: bpa
+
+Sets the attack duration for the bandpass filter envelope.
+
+
+attack : number | Pattern - time of the bandpass filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.bpf(500)
+.bpa("<.5 .25 .1 .01>/4")
+.bpenv(4)
+bpdecay
+Synonyms: bpd
+
+Sets the decay duration for the bandpass filter envelope.
+
+
+decay : number | Pattern - time of the bandpass filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.bpf(500)
+.bpd("<.5 .25 .1 0>/4")
+.bps(0.2)
+.bpenv(4)
+bpenv
+Synonyms: bpe
+
+Sets the bandpass filter envelope modulation depth.
+
+
+modulation : number | Pattern - depth of the bandpass filter envelope between 0 and n
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.bpf(500)
+.bpa(.5)
+.bpenv("<4 2 1 0 -1 -2 -4>/4")
+bpf
+Synonyms: bandf, bp
+
+Sets the center frequency of the band-pass filter. When using mininotation, you can also optionally supply the 'bpq' parameter separated by ':'.
+
+
+frequency : number | Pattern - center frequency
+s("bd sd [~ bd] sd,hh*6").bpf("<1000 2000 4000 8000>")
+bpq
+Synonyms: bandq
+
+Sets the band-pass q-factor (resonance).
+
+
+q : number | Pattern - q factor
+s("bd sd [~ bd] sd").bpf(500).bpq("<0 1 2 3>")
+bprelease
+Synonyms: bpr
+
+Sets the release time for the bandpass filter envelope.
+
+
+release : number | Pattern - time of the bandpass filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.clip(.5)
+.bpf(500)
+.bpenv(4)
+.bpr("<.5 .25 .1 0>/4")
+.release(.5)
+bpsustain
+Synonyms: bps
+
+Sets the sustain amplitude for the bandpass filter envelope.
+
+
+sustain : number | Pattern - amplitude of the bandpass filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.bpf(500)
+.bpd(.5)
+.bps("<0 .25 .5 1>/4")
+.bpenv(4)
+brak
+Returns a new pattern where every other cycle is played once, twice as fast, and offset in time by one quarter of a cycle. Creates a kind of breakbeat feel.
+
+
+brand
+A continuous pattern of 0 or 1 (binary random)
+
+
+s("hh*10").pan(brand)
+brandBy
+A continuous pattern of 0 or 1 (binary random), with a probability for the value being 1
+
+
+probability : number - a number between 0 and 1
+s("hh*10").pan(brandBy(0.2))
+byteBeatExpression
+Synonyms: bbexpr
+
+Create byte beats with custom expressions
+
+
+byteBeatExpression : number | Pattern - bitwise expression for creating bytebeat
+s("bytebeat").bbexpr('t*(t>>15^t>>66)')
+byteBeatStartTime
+Synonyms: bbst
+
+Create byte beats with custom expressions
+
+
+byteBeatStartTime : number | Pattern - in samples (t)
+note("c3!8".add("{0 0 12 0 7 5 3}%8")).s("bytebeat:5").bbst("<3 1>".mul(10000))._scope()
+cat
+Synonyms: slowcat
+
+The given items are concatenated, where each one takes one cycle.
+
+
+items : any - The items to concatenate
+cat("e5", "b4", ["d5", "c5"]).note()
+// "<e5 b4 [d5 c5]>".note()
+// As a chained function:
+s("hh*4").cat(
+   note("c4(5,8)")
+)
+ccn
+MIDI control number: Sends a MIDI control change message.
+
+
+MIDI : number | Pattern - control number (0-127)
+ccv
+MIDI control value: Sends a MIDI control change message.
+
+
+MIDI : number | Pattern - control value (0-127)
+ceil
+Assumes a numerical pattern. Returns a new pattern with all values set to their mathematical ceiling. E.g. 3.2 replaced with 4, and -4.2 replaced with -4.
+
+
+note("42 42.1 42.5 43".ceil())
+channel
+choose the channel the pattern is sent to in superdirt
+
+
+channel : number | Pattern - channel number
+channels
+Synonyms: ch
+
+Allows you to set the output channels on the interface
+
+
+channels : number | Pattern - pattern the output channels
+note("e a d b g").channels("3:4")
+choose
+Chooses from the given list of values (or patterns of values), according to the pattern that the method is called on. The pattern should be in the range 0 .. 1.
+
+
+xs : any
+choose2
+As with choose, but the pattern that this method is called on should be in the range -1 .. 1
+
+
+xs : any
+chooseCycles
+Synonyms: randcat
+
+Picks one of the elements at random each cycle.
+
+
+chooseCycles("bd", "hh", "sd").s().fast(8)
+s("bd | hh | sd").fast(8)
+chooseInWith
+As with {chooseWith}, but the structure comes from the chosen values, rather than the pattern you're using to choose with.
+
+
+pat : Pattern
+xs : *
+chooseWith
+Choose from the list of values (or patterns of values) using the given pattern of numbers, which should be in the range of 0..1
+
+
+pat : Pattern
+xs : *
+note("c2 g2!2 d2 f1").s(chooseWith(sine.fast(2), ["sawtooth", "triangle", "bd:6"]))
+chop
+Cuts each sample into the given number of parts, allowing you to explore a technique known as 'granular synthesis'. It turns a pattern of samples into a pattern of parts of samples.
+
+
+samples({ rhodes: 'https://cdn.freesound.org/previews/132/132051_316502-lq.mp3' })
+s("rhodes")
+ .chop(4)
+ .rev() // reverse order of chops
+ .loopAt(2) // fit sample into 2 cycles
+chorus
+mix control for the chorus effect
+
+
+chorus : string | Pattern - mix amount between 0 and 1
+note("d d a# a").s("sawtooth").chorus(.5)
+chunk
+Synonyms: slowChunk, slowchunk
+
+Divides a pattern into a given number of parts, then cycles through those parts in turn, applying the given function to each part in turn (one part per cycle).
+
+
+"0 1 2 3".chunk(4, x=>x.add(7))
+.scale("A:minor").note()
+chunkBack
+Synonyms: chunkback
+
+Like chunk, but cycles through the parts in reverse order. Known as chunk' in tidalcycles
+
+
+"0 1 2 3".chunkBack(4, x=>x.add(7))
+.scale("A:minor").note()
+chunkBackInto
+Synonyms: chunkbackinto
+
+Like chunkInto, but moves backwards through the chunks.
+
+
+sound("bd sd ht lt bd - cp lt").chunkInto(4, hurry(2))
+  .bank("tr909")
+chunkInto
+Synonyms: chunkinto
+
+Like chunk, but the function is applied to a looped subcycle of the source pattern.
+
+
+sound("bd sd ht lt bd - cp lt").chunkInto(4, hurry(2))
+  .bank("tr909")
+chyx
+BYTE BEATS
+
+
+clip
+Synonyms: legato
+
+Multiplies the duration with the given number. Also cuts samples off at the end if they exceed the duration.
+
+
+factor : number | Pattern - = 0
+note("c a f e").s("piano").clip("<.5 1 2>")
+coarse
+fake-resampling for lowering the sample rate. Caution: This effect seems to only work in chromium based browsers
+
+
+factor : number | Pattern - 1 for original 2 for half, 3 for a third and so on.
+s("bd sd [~ bd] sd,hh*8").coarse("<1 4 8 16 32>")
+color
+Synonyms: colour
+
+Sets the color of the hap in visualizations like pianoroll or highlighting.
+
+
+color : string - Hexadecimal or CSS color name
+compress
+Compress each cycle into the given timespan, leaving a gap
+
+
+cat(
+  s("bd sd").compress(.25,.75),
+  s("~ bd sd ~")
+)
+compressor
+Dynamics Compressor. The params are compressor("threshold:ratio:knee:attack:release") More info here
+
+
+s("bd sd [~ bd] sd,hh*8")
+.compressor("-20:20:10:.002:.02")
+computeMagnitudes
+Compute squared magnitudes for peak finding
+
+
+contract
+Experimental
+
+Contracts the step size of the pattern by the given factor. See also expand.
+
+
+sound("tha dhi thom nam").bank("mridangam").contract("3 2 1 1 2 3").pace(8)
+control
+MIDI control: Sends a MIDI control change message.
+
+
+MIDI : number | Pattern - control number (0-127)
+MIDI : number | Pattern - controller value (0-127)
+cosine
+A cosine signal between 0 and 1.
+
+
+n(stack(sine,cosine).segment(16).range(0,15))
+.scale("C:minor")
+cosine2
+A cosine signal between -1 and 1 (like cosine, but bipolar).
+
+
+cpm
+Plays the pattern at the given cycles per minute.
+
+
+s("<bd sd>,hh*2").cpm(90) // = 90 bpm
+crossfade
+Equal Power Crossfade function. Smoothly transitions between signals A and B, maintaining consistent perceived loudness.
+
+
+a : number - Signal A (can be a single value or an array value in buffer processing).
+b : number - Signal B (can be a single value or an array value in buffer processing).
+m : number - Crossfade parameter (0.0 = all A, 1.0 = all B, 0.5 = equal mix).
+crush
+bit crusher effect.
+
+
+depth : number | Pattern - between 1 (for drastic reduction in bit-depth) to 16 (for barely no reduction).
+s("<bd sd>,hh*3").fast(2).crush("<16 8 7 6 5 4 3 2>")
+csoundm
+Sends notes to Csound for rendering with MIDI semantics. The hap value is translated to these Csound pfields:
+
+p1 -- Csound instrument either as a number (1-based, can be a fraction), or as a string name. p2 -- time in beats (usually seconds) from start of performance. p3 -- duration in beats (usually seconds). p4 -- MIDI key number (as a real number, not an integer but in [0, 127]. p5 -- MIDI velocity (as a real number, not an integer but in [0, 127]. p6 -- Strudel controls, as a string.
+
+
+cut
+In the style of classic drum-machines, cut will stop a playing sample as soon as another samples with in same cutgroup is to be played. An example would be an open hi-hat followed by a closed one, essentially muting the open.
+
+
+group : number | Pattern - cut group number
+s("[oh hh]*4").cut(1)

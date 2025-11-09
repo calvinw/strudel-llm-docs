@@ -1,0 +1,405 @@
+API Reference
+This is the long list of functions you can use. Remember that you don't need to remember all of those and that you can already make music with a small set of functions!
+
+
+keyDown
+returns true when a key or array of keys is held Key name reference
+
+
+keyDown("Control:j").pick([s("bd(5,8)"), s("cp(3,8)")])
+label
+Sets the displayed text for an event on the pianoroll
+
+
+label : string - text to display
+lastOf
+Applies the given function every n cycles, starting from the last cycle.
+
+
+n : number - how many cycles
+func : function - function to apply
+note("c3 d3 e3 g3").lastOf(4, x=>x.rev())
+late
+Nudge a pattern to start later in time. Equivalent of Tidal's ~> operator
+
+
+cycles : number | Pattern - number of cycles to nudge right
+"bd ~".stack("hh ~".late(.1)).s()
+layer
+Synonyms: apply
+
+Layers the result of the given function(s). Like superimpose, but without the original pattern:
+
+
+"<0 2 4 6 ~ 4 ~ 2 0!3 ~!5>*8"
+  .layer(x=>x.add("0,2"))
+  .scale('C minor').note()
+leslie
+Emulation of a Leslie speaker: speakers rotating in a wooden amplified cabinet.
+
+
+wet : number | Pattern - between 0 and 1
+n("0,4,7").s("supersquare").leslie("<0 .4 .6 1>").osc()
+linger
+Selects the given fraction of the pattern and repeats that part to fill the remainder of the cycle.
+
+
+fraction : number - fraction to select
+s("lt ht mt cp, [hh oh]*2").linger("<1 .5 .25 .125>")
+lock
+Specifies whether delaytime is calculated relative to cps.
+
+
+enable : number | Pattern - When set to 1, delaytime is a direct multiple of a cycle.
+s("sd").delay().lock(1).osc()
+log
+Writes the content of the current event to the console (visible in the side menu).
+
+
+s("bd sd").log()
+logValues
+A simplified version of log which writes all "values" (various configurable parameters) within the event to the console (visible in the side menu).
+
+
+s("bd sd").gain("0.25 0.5 1").n("2 1 0").logValues()
+loop
+Loops the sample. Note that the tempo of the loop is not synced with the cycle tempo. To change the loop region, use loopBegin / loopEnd.
+
+
+on : number | Pattern - If 1, the sample is looped
+s("casio").loop(1)
+loopAt
+Makes the sample fit the given number of cycles by changing the speed.
+
+
+samples({ rhodes: 'https://cdn.freesound.org/previews/132/132051_316502-lq.mp3' })
+s("rhodes").loopAt(2)
+loopAtCps
+Makes the sample fit the given number of cycles and cps value, by changing the speed. Please note that at some point cps will be given by a global clock and this function will be deprecated/removed.
+
+
+samples({ rhodes: 'https://cdn.freesound.org/previews/132/132051_316502-lq.mp3' })
+s("rhodes").loopAtCps(4,1.5).cps(1.5)
+loopBegin
+Synonyms: loopb
+
+Begin to loop at a specific point in the sample (inbetween begin and end). Note that the loop point must be inbetween begin and end, and before loopEnd! Note: Samples starting with wt_ will automatically loop! (wt = wavetable)
+
+
+time : number | Pattern - between 0 and 1, where 1 is the length of the sample
+s("space").loop(1)
+.loopBegin("<0 .125 .25>")._scope()
+loopEnd
+Synonyms: loope
+
+End the looping section at a specific point in the sample (inbetween begin and end). Note that the loop point must be inbetween begin and end, and after loopBegin!
+
+
+time : number | Pattern - between 0 and 1, where 1 is the length of the sample
+s("space").loop(1)
+.loopEnd("<1 .75 .5 .25>")._scope()
+lpattack
+Synonyms: lpa
+
+Sets the attack duration for the lowpass filter envelope.
+
+
+attack : number | Pattern - time of the filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.lpf(300)
+.lpa("<.5 .25 .1 .01>/4")
+.lpenv(4)
+lpdecay
+Synonyms: lpd
+
+Sets the decay duration for the lowpass filter envelope.
+
+
+decay : number | Pattern - time of the filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.lpf(300)
+.lpd("<.5 .25 .1 0>/4")
+.lpenv(4)
+lpenv
+Synonyms: lpe
+
+Sets the lowpass filter envelope modulation depth.
+
+
+modulation : number | Pattern - depth of the lowpass filter envelope between 0 and n
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.lpf(300)
+.lpa(.5)
+.lpenv("<4 2 1 0 -1 -2 -4>/4")
+lpf
+Synonyms: cutoff, ctf, lp
+
+Applies the cutoff frequency of the low-pass filter.
+
+When using mininotation, you can also optionally add the 'lpq' parameter, separated by ':'.
+
+
+frequency : number | Pattern - audible between 0 and 20000
+s("bd sd [~ bd] sd,hh*6").lpf("<4000 2000 1000 500 200 100>")
+s("bd*16").lpf("1000:0 1000:10 1000:20 1000:30")
+lpq
+Synonyms: resonance
+
+Controls the low-pass q-value.
+
+
+q : number | Pattern - resonance factor between 0 and 50
+s("bd sd [~ bd] sd,hh*8").lpf(2000).lpq("<0 10 20 30>")
+lprelease
+Synonyms: lpr
+
+Sets the release time for the lowpass filter envelope.
+
+
+release : number | Pattern - time of the filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.clip(.5)
+.lpf(300)
+.lpenv(4)
+.lpr("<.5 .25 .1 0>/4")
+.release(.5)
+lpsustain
+Synonyms: lps
+
+Sets the sustain amplitude for the lowpass filter envelope.
+
+
+sustain : number | Pattern - amplitude of the lowpass filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.lpf(300)
+.lpd(.5)
+.lps("<0 .25 .5 1>/4")
+.lpenv(4)
+lrate
+Rate of modulation / rotation for leslie effect
+
+
+rate : number | Pattern - 6.7 for fast, 0.7 for slow
+n("0,4,7").s("supersquare").leslie(1).lrate("<1 2 4 8>").osc()
+lsize
+Physical size of the cabinet in meters. Be careful, it might be slightly larger than your computer. Affects the Doppler amount (pitch warble)
+
+
+meters : number | Pattern - somewhere between 0 and 1
+n("0,4,7").s("supersquare").leslie(1).lrate(2).lsize("<.1 .5 1>").osc()
+markcss
+Overrides the css of highlighted events. Make sure to use single quotes!
+
+
+note("c a f e")
+.markcss('text-decoration:underline')
+mask
+Returns silence when mask is 0 or "~"
+
+
+note("c [eb,g] d [eb,g]").mask("<1 [0 1]>")
+midi
+MIDI output: Opens a MIDI output port.
+
+
+midiport : string | number - MIDI device name or index defaulting to 0
+options : object - Additional MIDI configuration options
+note("c4").midichan(1).midi('IAC Driver Bus 1')
+note("c4").midichan(1).midi('IAC Driver Bus 1', { controller: true, latency: 50 })
+midibend
+MIDI pitch bend: Sends a MIDI pitch bend message.
+
+
+midibend : number | Pattern - MIDI pitch bend (-1 - 1)
+note("c4").midibend(sine.slow(4).range(-0.4,0.4)).midi()
+midichan
+MIDI channel: Sets the MIDI channel for the event.
+
+
+channel : number | Pattern - MIDI channel number (0-15)
+note("c4").midichan(1).midi()
+midicmd
+MIDI command: Sends a MIDI command message.
+
+
+command : number | Pattern - MIDI command
+midicmd("clock*48,<start stop>/2").midi()
+midimaps
+Adds midimaps to the registry. Inside each midimap, control names (e.g. lpf) are mapped to cc numbers.
+
+
+midimaps({ mymap: { lpf: 74 } })
+$: note("c a f e")
+.lpf(sine.slow(4))
+.midimap('mymap')
+.midi()
+midimaps({ mymap: {
+  lpf: { ccn: 74, min: 0, max: 20000, exp: 0.5 }
+}})
+$: note("c a f e")
+.lpf(sine.slow(2).range(400,2000))
+.midimap('mymap')
+.midi()
+midin
+MIDI input: Opens a MIDI input port to receive MIDI control change messages.
+
+
+input : string | number - MIDI device name or index defaulting to 0
+let cc = await midin('IAC Driver Bus 1')
+note("c a f e").lpf(cc(0).range(0, 1000)).lpq(cc(1).range(0, 10)).sound("sawtooth")
+midiport
+MIDI port: Sets the MIDI port for the event.
+
+
+port : number | Pattern - MIDI port
+note("c a f e").midiport("<0 1 2 3>").midi()
+miditouch
+MIDI key after touch: Sends a MIDI key after touch message.
+
+
+miditouch : number | Pattern - MIDI key after touch (0-1)
+note("c4").miditouch(sine.slow(4).range(0,1)).midi()
+morph
+Takes two binary rhythms represented as lists of 1s and 0s, and a number between 0 and 1 that morphs between them. The two lists should contain the same number of true values.
+
+
+sound("hh").struct(morph([1,0,1,0,1,0,1,0], // straight rhythm
+                         [1,1,0,1,0,1,0], // wonky rhythm
+                         0.25 // creates a slightly wonky rhythm
+                        )
+                  )
+sound("hh").struct(morph("1:0:1:0:1:0:1:0", // straight rhythm
+                         "1:1:0:1:0:1:0", // wonky rhythm
+                         sine.slow(8) // slowly morph between the rhythms
+                        )
+                  )
+mousex
+The mouse's x position value ranges from 0 to 1.
+
+
+n(mousex.segment(4).range(0,7)).scale("C:minor")
+mousey
+The mouse's y position value ranges from 0 to 1.
+
+
+n(mousey.segment(4).range(0,7)).scale("C:minor")
+mul
+Multiplies each number by the given factor.
+
+
+"<1 1.5 [1.66, <2 2.33>]>*4".mul(150).freq()
+n
+Selects the given index from the sample map. Numbers too high will wrap around. n can also be used to play midi numbers, but it is recommended to use note instead.
+
+
+value : number | Pattern - sample index starting from 0
+s("bd sd [~ bd] sd,hh*6").n("<0 1>")
+never
+Shorthand for .sometimesBy(0, fn) (never calls fn)
+
+
+s("hh*8").never(x=>x.speed("0.5"))
+noise
+Adds pink noise to the mix
+
+
+wet : number | Pattern - wet amount
+sound("<white pink brown>/2")
+note
+Plays the given note name or midi number. A note name consists of
+
+a letter (a-g or A-G)
+optional accidentals (b or #)
+optional octave number (0-9). Defaults to 3
+Examples of valid note names: c, bb, Bb, f#, c3, A4, Eb2, c#5
+
+You can also use midi numbers instead of note names, where 69 is mapped to A4 440Hz in 12EDO.
+
+
+note("c a f e")
+note("c4 a4 f4 e4")
+note("60 69 65 64")
+nrpnn
+MIDI NRPN non-registered parameter number: Sends a MIDI NRPN non-registered parameter number message.
+
+
+nrpnn : number | Pattern - MIDI NRPN non-registered parameter number (0-127)
+note("c4").nrpnn("1:8").nrpv("123").midichan(1).midi()
+nrpv
+MIDI NRPN non-registered parameter value: Sends a MIDI NRPN non-registered parameter value message.
+
+
+nrpv : number | Pattern - MIDI NRPN non-registered parameter value (0-127)
+note("c4").nrpnn("1:8").nrpv("123").midichan(1).midi()
+octave
+Sets the default octave of a synth.
+
+
+octave : number | Pattern - octave number
+n("0,4,7").s('supersquare').octave("<3 4 5 6>").osc()
+off
+Superimposes the function result on top of the original pattern, delayed by the given time.
+
+
+time : Pattern | number - offset time
+func : function - function to apply
+"c3 eb3 g3".off(1/8, x=>x.add(7)).note()
+often
+Shorthand for .sometimesBy(0.75, fn)
+
+
+s("hh*8").often(x=>x.speed("0.5"))
+onTriggerTime
+make something happen on event time uses browser timeout which is innacurate for audio tasks
+
+
+s("bd!8").onTriggerTime((hap) => {console.log(hap)})
+onsetsOnly
+Returns a new pattern, with all haps without onsets filtered out. A hap with an onset is one with a whole timespan that begins at the same time as its part timespan.
+
+
+orbit
+An orbit is a global parameter context for patterns. Patterns with the same orbit will share the same global effects.
+
+
+number : number | Pattern
+stack(
+  s("hh*6").delay(.5).delaytime(.25).orbit(1),
+  s("~ sd ~ sd").delay(.5).delaytime(.125).orbit(2)
+)
+orientationAlpha
+Synonyms: oriA, oriZ, orientationZ
+
+The device's orientation alpha value ranges from 0 to 1.
+
+
+n(orientationAlpha.segment(4).range(0,7)).scale("C:minor")
+orientationBeta
+Synonyms: oriB, oriX, orientationX
+
+The device's orientation beta value ranges from 0 to 1.
+
+
+n(orientationBeta.segment(4).range(0,7)).scale("C:minor")
+orientationGamma
+Synonyms: oriG, oriY, orientationY
+
+The device's orientation gamma value ranges from 0 to 1.
+
+
+n(orientationGamma.segment(4).range(0,7)).scale("C:minor")
+osc
+Sends each hap as an OSC message, which can be picked up by SuperCollider or any other OSC-enabled software. For more info, read MIDI & OSC in the docs
+
+
+outside
+Carries out an operation 'outside' a cycle.
+
+
+"<[0 1] 2 [3 4] 5>".outside(4, rev).scale('C major').note()
+// "<[0 1] 2 [3 4] 5>".fast(4).rev().slow(4).scale('C major').note()

@@ -1,0 +1,511 @@
+API Reference
+This is the long list of functions you can use. Remember that you don't need to remember all of those and that you can already make music with a small set of functions!
+
+
+pace
+Experimental
+
+Speeds a pattern up or down, to fit to the given number of steps per cycle.
+
+
+sound("bd sd cp").pace(4)
+// The same as sound("{bd sd cp}%4") or sound("<bd sd cp>*4")
+palindrome
+Applies rev to a pattern every other cycle, so that the pattern alternates between forwards and backwards.
+
+
+note("c d e g").palindrome()
+pan
+Sets position in stereo.
+
+
+pan : number | Pattern - between 0 and 1, from left to right (assuming stereo), once round a circle (assuming multichannel)
+s("[bd hh]*2").pan("<.5 1 .5 0>")
+s("bd rim sd rim bd ~ cp rim").pan(sine.slow(2))
+panchor
+Sets the range anchor of the envelope:
+
+anchor 0: range = [note, note + penv]
+anchor 1: range = [note - penv, note] If you don't set an anchor, the value will default to the psustain value.
+
+anchor : number | Pattern - anchor offset
+note("c c4").penv(12).panchor("<0 .5 1 .5>")
+pattack
+Synonyms: patt
+
+Attack time of pitch envelope.
+
+
+time : number | Pattern - time in seconds
+note("c eb g bb").pattack("0 .1 .25 .5").slow(2)
+Pattern
+Create a pattern. As an end user, you will most likely not create a Pattern directly.
+
+
+query : function - The function that maps a State to an array of Hap.
+pcurve
+Curve of envelope. Defaults to linear. exponential is good for kicks
+
+
+type : number | Pattern - 0 = linear, 1 = exponential
+note("g1*4")
+.s("sine").pdec(.5)
+.penv(32)
+.pcurve("<0 1>")
+pdecay
+Synonyms: pdec
+
+Decay time of pitch envelope.
+
+
+time : number | Pattern - time in seconds
+note("<c eb g bb>").pdecay("<0 .1 .25 .5>")
+penv
+Amount of pitch envelope. Negative values will flip the envelope. If you don't set other pitch envelope controls, pattack:.2 will be the default.
+
+
+semitones : number | Pattern - change in semitones
+note("c")
+.penv("<12 7 1 .5 0 -1 -7 -12>")
+perlin
+Generates a continuous pattern of perlin noise, in the range 0..1.
+
+
+// randomly change the cutoff
+s("bd*4,hh*8").cutoff(perlin.range(500,8000))
+phaser
+Synonyms: ph
+
+Phaser audio effect that approximates popular guitar pedals.
+
+
+speed : number | Pattern - speed of modulation
+n(run(8)).scale("D:pentatonic").s("sawtooth").release(0.5)
+.phaser("<1 2 4 8>")
+phasercenter
+Synonyms: phc
+
+The center frequency of the phaser in HZ. Defaults to 1000
+
+
+centerfrequency : number | Pattern - in HZ
+n(run(8)).scale("D:pentatonic").s("sawtooth").release(0.5)
+.phaser(2).phasercenter("<800 2000 4000>")
+phaserdepth
+Synonyms: phd
+
+The amount the signal is affected by the phaser effect. Defaults to 0.75
+
+
+depth : number | Pattern - number between 0 and 1
+n(run(8)).scale("D:pentatonic").s("sawtooth").release(0.5)
+.phaser(2).phaserdepth("<0 .5 .75 1>")
+phasersweep
+Synonyms: phs
+
+The frequency sweep range of the lfo for the phaser effect. Defaults to 2000
+
+
+phasersweep : number | Pattern - most useful values are between 0 and 4000
+n(run(8)).scale("D:pentatonic").s("sawtooth").release(0.5)
+.phaser(2).phasersweep("<800 2000 4000>")
+pianoroll
+Synonyms: punchcard
+
+Visualises a pattern as a scrolling 'pianoroll', displayed in the background of the editor. To show a pianoroll for all running patterns, use all(pianoroll). To have a pianoroll appear below a pattern instead, prefix with _, e.g.: sound("bd sd")._pianoroll().
+
+
+options : Object - Object containing all the optional following parameters as key value pairs:
+cycles : integer - number of cycles to be displayed at the same time - defaults to 4
+playhead : number - location of the active notes on the time axis - 0 to 1, defaults to 0.5
+vertical : boolean - displays the roll vertically - 0 by default
+labels : boolean - displays labels on individual notes (see the label function) - 0 by default
+flipTime : boolean - reverse the direction of the roll - 0 by default
+flipValues : boolean - reverse the relative location of notes on the value axis - 0 by default
+overscan : number - lookup X cycles outside of the cycles window to display notes in advance - 1 by default
+hideNegative : boolean - hide notes with negative time (before starting playing the pattern) - 0 by default
+smear : boolean - notes leave a solid trace - 0 by default
+fold : boolean - notes takes the full value axis width - 0 by default
+active : string - hexadecimal or CSS color of the active notes - defaults to #FFCA28
+inactive : string - hexadecimal or CSS color of the inactive notes - defaults to #7491D2
+background : string - hexadecimal or CSS color of the background - defaults to transparent
+playheadColor : string - hexadecimal or CSS color of the line representing the play head - defaults to white
+fill : boolean - notes are filled with color (otherwise only the label is displayed) - 0 by default
+fillActive : boolean - active notes are filled with color - 0 by default
+stroke : boolean - notes are shown with colored borders - 0 by default
+strokeActive : boolean - active notes are shown with colored borders - 0 by default
+hideInactive : boolean - only active notes are shown - 0 by default
+colorizeInactive : boolean - use note color for inactive notes - 1 by default
+fontFamily : string - define the font used by notes labels - defaults to 'monospace'
+minMidi : integer - minimum note value to display on the value axis - defaults to 10
+maxMidi : integer - maximum note value to display on the value axis - defaults to 90
+autorange : boolean - automatically calculate the minMidi and maxMidi parameters - 0 by default
+note("c2 a2 eb2")
+.euclid(5,8)
+.s('sawtooth')
+.lpenv(4).lpf(300)
+.pianoroll({ labels: 1 })
+pick
+Picks patterns (or plain values) either from a list (by index) or a lookup table (by name). Similar to inhabit, but maintains the structure of the original patterns.
+
+
+pat : Pattern
+xs : *
+note("<0 1 2!2 3>".pick(["g a", "e f", "f g f g" , "g c d"]))
+sound("<0 1 [2,0]>".pick(["bd sd", "cp cp", "hh hh"]))
+sound("<0!2 [0,1] 1>".pick(["bd(3,8)", "sd sd"]))
+s("<a!2 [a,b] b>".pick({a: "bd(3,8)", b: "sd sd"}))
+pickF
+pickF lets you use a pattern of numbers to pick which function to apply to another pattern.
+
+
+pat : Pattern
+lookup : Pattern - a pattern of indices
+funcs : Array.<function()> - the array of functions from which to pull
+s("bd [rim hh]").pickF("<0 1 2>", [rev,jux(rev),fast(2)])
+note("<c2 d2>(3,8)").s("square")
+    .pickF("<0 2> 1", [jux(rev),fast(2),x=>x.lpf(800)])
+pickOut
+Similar to pick, but it applies an outerJoin instead of an innerJoin.
+
+
+pat : Pattern
+xs : *
+pickReset
+Similar to pick, but the choosen pattern is reset when its index is triggered.
+
+
+pat : Pattern
+xs : *
+pickRestart
+Similar to pick, but the choosen pattern is restarted when its index is triggered.
+
+
+pat : Pattern
+xs : *
+pickmod
+The same as pick, but if you pick a number greater than the size of the list, it wraps around, rather than sticking at the maximum value. For example, if you pick the fifth pattern of a list of three, you'll get the second one.
+
+
+pat : Pattern
+xs : *
+pickmodF
+The same as pickF, but if you pick a number greater than the size of the functions list, it wraps around, rather than sticking at the maximum value.
+
+
+pat : Pattern
+lookup : Pattern - a pattern of indices
+funcs : Array.<function()> - the array of functions from which to pull
+pickmodOut
+The same as pickOut, but if you pick a number greater than the size of the list, it wraps around, rather than sticking at the maximum value.
+
+
+pat : Pattern
+xs : *
+pickmodReset
+The same as pickReset, but if you pick a number greater than the size of the list, it wraps around, rather than sticking at the maximum value.
+
+
+pat : Pattern
+xs : *
+pickmodRestart
+The same as pickRestart, but if you pick a number greater than the size of the list, it wraps around, rather than sticking at the maximum value.
+
+
+pat : Pattern
+xs : *
+"<a@2 b@2 c@2 d@2>".pickRestart({
+        a: n("0 1 2 0"),
+        b: n("2 3 4 ~"),
+        c: n("[4 5] [4 3] 2 0"),
+        d: n("0 -3 0 ~")
+      }).scale("C:major").s("piano")
+pitchwheel
+Renders a pitch circle to visualize frequencies within one octave
+
+
+hapcircles : number
+circle : number
+edo : number
+root : string
+thickness : number
+hapRadius : number
+mode : string
+margin : number
+n("0 .. 12").scale("C:chromatic")
+.s("sawtooth")
+.lpf(500)
+._pitchwheel()
+ply
+The ply function repeats each event the given number of times.
+
+
+s("bd ~ sd cp").ply("<1 2 3>")
+polymeter
+Synonyms: pm
+
+Experimental
+
+Aligns the steps of the patterns, creating polymeters. The patterns are repeated until they all fit the cycle. For example, in the below the first pattern is repeated twice, and the second is repeated three times, to fit the lowest common multiple of six steps.
+
+
+// The same as note("{c eb g, c2 g2}%6")
+polymeter("c eb g", "c2 g2").note()
+postgain
+Gain applied after all effects have been processed.
+
+
+s("bd sd [~ bd] sd,hh*8")
+.compressor("-20:20:10:.002:.02").postgain(1.5)
+prelease
+Synonyms: prel
+
+Release time of pitch envelope
+
+
+time : number | Pattern - time in seconds
+note("<c eb g bb> ~")
+.release(.5) // to hear the pitch release
+.prelease("<0 .1 .25 .5>")
+prepareInputBuffersToSend
+Copy contents of input buffers to buffer actually sent to process
+
+
+press
+Syncopates a rhythm, by shifting each event halfway into its timespan.
+
+
+stack(s("hh*4"),
+      s("bd mt sd ht").every(4, press)
+     ).slow(2)
+pressBy
+Like press, but allows you to specify the amount by which each event is shifted. pressBy(0.5) is the same as press, while pressBy(1/3) shifts each event by a third of its timespan.
+
+
+stack(s("hh*4"),
+      s("bd mt sd ht").pressBy("<0 0.5 0.25>")
+     ).slow(2)
+progNum
+MIDI program number: Sends a MIDI program change message.
+
+
+program : number | Pattern - MIDI program number (0-127)
+note("c4").progNum(10).midichan(1).midi()
+pure
+A discrete value that repeats once per cycle.
+
+
+pure('e4') // "e4"
+pw
+controls the pulsewidth of the pulse oscillator
+
+
+pulsewidth : number | Pattern
+note("{f a c e}%16").s("pulse").pw(".8:1:.2")
+n(run(8)).scale("D:pentatonic").s("pulse").pw("0 .75 .5 1")
+pwrate
+controls the lfo rate for the pulsewidth of the pulse oscillator
+
+
+rate : number | Pattern
+n(run(8)).scale("D:pentatonic").s("pulse").pw("0.5").pwrate("<5 .1 25>").pwsweep("<0.3 .8>")
+pwsweep
+controls the lfo sweep for the pulsewidth of the pulse oscillator
+
+
+sweep : number | Pattern
+n(run(8)).scale("D:pentatonic").s("pulse").pw("0.5").pwrate("<5 .1 25>").pwsweep("<0.3 .8>")
+queryArc
+Query haps inside the given time span.
+
+
+begin : Fraction | number - from time
+end : Fraction | number - to time
+const pattern = sequence('a', ['b', 'c'])
+const haps = pattern.queryArc(0, 1)
+console.log(haps)
+rand
+A continuous pattern of random numbers, between 0 and 1.
+
+
+// randomly change the cutoff
+s("bd*4,hh*8").cutoff(rand.range(500,8000))
+rand2
+A continuous pattern of random numbers, between -1 and 1
+
+
+range
+Assumes a numerical pattern, containing unipolar values in the range 0 .. 1. Returns a new pattern with values scaled to the given min/max range. Most useful in combination with continuous patterns.
+
+
+s("[bd sd]*2,hh*8")
+.cutoff(sine.range(500,4000))
+range2
+Assumes a numerical pattern, containing bipolar values in the range -1 .. 1 Returns a new pattern with values scaled to the given min/max range.
+
+
+s("[bd sd]*2,hh*8")
+.cutoff(sine2.range2(500,4000))
+rangex
+Assumes a numerical pattern, containing unipolar values in the range 0 .. 1 Returns a new pattern with values scaled to the given min/max range, following an exponential curve.
+
+
+s("[bd sd]*2,hh*8")
+.cutoff(sine.rangex(500,4000))
+rarely
+Shorthand for .sometimesBy(0.25, fn)
+
+
+s("hh*8").rarely(x=>x.speed("0.5"))
+ratio
+Allows dividing numbers via list notation using ":". Returns a new pattern with just numbers.
+
+
+ratio("1, 5:4, 3:2").mul(110)
+.freq().s("piano")
+readInputs
+Read next web audio block to input buffers
+
+
+reallocateChannelsIfNeeded
+Handles dynamic reallocation of input/output channels buffer (channel numbers may lety during lifecycle)
+
+
+ref
+exposes a custom value at query time. basically allows mutating state without evaluation
+
+
+register
+Registers a new pattern method. The method is added to the Pattern class + the standalone function is returned from register.
+
+
+name : string | Array.<string> - name of the function, or an array of names to be used as synonyms
+func : function - function with 1 or more params, where last is the current pattern
+release
+Synonyms: rel
+
+Amplitude envelope release time: The time it takes after the offset to go from sustain level to zero.
+
+
+time : number | Pattern - release time in seconds
+note("c3 e3 g3 c4").release("<0 .1 .4 .6 1>/2")
+removeUndefineds
+Returns a new pattern, with haps containing undefined values removed from query results.
+
+
+repeatCycles
+Repeats each cycle the given number of times.
+
+
+note(irand(12).add(34)).segment(4).repeatCycles(2).s("gm_acoustic_guitar_nylon")
+reset
+Resets the pattern to the start of the cycle for each onset of the reset pattern.
+
+
+s("[<bd lt> sd]*2, hh*8").reset("<x@3 x(5,8)>")
+restart
+Restarts the pattern for each onset of the restart pattern. While reset will only reset the current cycle, restart will start from cycle 0.
+
+
+s("[<bd lt> sd]*2, hh*8").restart("<x@3 x(5,8)>")
+rev
+Reverse all haps in a pattern
+
+
+note("c d e g").rev()
+ribbon
+Synonyms: rib
+
+Loops the pattern inside an offset for cycles. If you think of the entire span of time in cycles as a ribbon, you can cut a single piece and loop it.
+
+
+offset : number - start point of loop in cycles
+cycles : number - loop length in cycles
+note("<c d e f>").ribbon(1, 2)
+// Looping a portion of randomness
+n(irand(8).segment(4)).scale("c:pentatonic").ribbon(1337, 2)
+// rhythm generator
+s("bd!16?").ribbon(29,.5)
+room
+Sets the level of reverb.
+
+When using mininotation, you can also optionally add the 'size' parameter, separated by ':'.
+
+
+level : number | Pattern - between 0 and 1
+s("bd sd [~ bd] sd").room("<0 .2 .4 .6 .8 1>")
+s("bd sd [~ bd] sd").room("<0.9:1 0.9:4>")
+roomdim
+Synonyms: rdim
+
+Reverb lowpass frequency at -60dB (in hertz). When this property is changed, the reverb will be recaculated, so only change this sparsely..
+
+
+frequency : number - between 0 and 20000hz
+s("bd sd [~ bd] sd").room(0.5).rlp(10000).rdim(8000)
+s("bd sd [~ bd] sd").room(0.5).rlp(5000).rdim(400)
+roomfade
+Synonyms: rfade
+
+Reverb fade time (in seconds). When this property is changed, the reverb will be recaculated, so only change this sparsely..
+
+
+seconds : number - for the reverb to fade
+s("bd sd [~ bd] sd").room(0.5).rlp(10000).rfade(0.5)
+s("bd sd [~ bd] sd").room(0.5).rlp(5000).rfade(4)
+roomlp
+Synonyms: rlp
+
+Reverb lowpass starting frequency (in hertz). When this property is changed, the reverb will be recaculated, so only change this sparsely..
+
+
+frequency : number - between 0 and 20000hz
+s("bd sd [~ bd] sd").room(0.5).rlp(10000)
+s("bd sd [~ bd] sd").room(0.5).rlp(5000)
+roomsize
+Synonyms: rsize, sz, size
+
+Sets the room size of the reverb, see room. When this property is changed, the reverb will be recaculated, so only change this sparsely..
+
+
+size : number | Pattern - between 0 and 10
+s("bd sd [~ bd] sd").room(.8).rsize(1)
+s("bd sd [~ bd] sd").room(.8).rsize(4)
+rootNotes
+Maps the chords of the incoming pattern to root notes in the given octave.
+
+
+octave : octave - octave to use
+"<C^7 A7 Dm7 G7>".rootNotes(2).note()
+rotationAlpha
+Synonyms: rotA, rotZ, rotationZ
+
+The device's rotation around the alpha-axis value ranges from 0 to 1.
+
+
+n(rotationAlpha.segment(4).range(0,7)).scale("C:minor")
+rotationBeta
+Synonyms: rotB, rotX, rotationX
+
+The device's rotation around the beta-axis value ranges from 0 to 1.
+
+
+n(rotationBeta.segment(4).range(0,7)).scale("C:minor")
+rotationGamma
+Synonyms: rotG, rotY, rotationY
+
+The device's rotation around the gamma-axis value ranges from 0 to 1.
+
+
+n(rotationGamma.segment(4).range(0,7)).scale("C:minor")
+round
+Assumes a numerical pattern. Returns a new pattern with all values rounded to the nearest integer.
+
+
+n("0.5 1.5 2.5".round()).scale("C:major")
+run
+A discrete pattern of numbers from 0 to n-1
+
+
+n(run(4)).scale("C4:pentatonic")
+// n("0 1 2 3").scale("C4:pentatonic")

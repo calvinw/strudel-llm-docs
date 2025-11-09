@@ -1,0 +1,415 @@
+STRUDEL REFERENCE - QUICK LOOKUP
+================================================================================
+
+One-line descriptions of all 407 Strudel functions.
+For full documentation with parameters and examples, see the split reference files.
+
+================================================================================
+
+absoluteOrientationAlpha            The device's absolute orientation alpha value ranges from 0 to 1.
+absoluteOrientationBeta             The device's absolute orientation beta value ranges from 0 to 1.
+absoluteOrientationGamma            The device's absolute orientation gamma value ranges from 0 to 1.
+accelerate                          A pattern of numbers that speed up (or slow down) samples while they p
+accelerationX                       The accelerometer's x-axis value ranges from 0 to 1.
+accelerationY                       The accelerometer's y-axis value ranges from 0 to 1.
+accelerationZ                       The accelerometer's z-axis value ranges from 0 to 1.
+add                                 Assumes a pattern of numbers. Adds the given number to each item in th
+addVoicings                         Adds a new custom voicing dictionary.
+adsr                                No description
+aliasBank                           Register an alias for a bank of sounds. Optionally accepts a single ar
+allTransforms                       Applies a function to all the running patterns. Note that the patterns
+almostAlways                        Shorthand for .sometimesBy(0.9, fn)
+almostNever                         Shorthand for .sometimesBy(0.1, fn)
+always                              Shorthand for .sometimesBy(1, fn) (always calls fn)
+amp                                 Like gain, but linear.
+appBoth                             When this method is called on a pattern of functions, it matches its h
+appLeft                             As with appBoth, but the whole timespan is not the intersection, but t
+appRight                            As with appLeft, but whole timespans are instead taken from the patter
+appWhole                            Assumes 'this' is a pattern of functions, and given a function to reso
+apply                               "<c3 eb3 g3>".scale('C minor').apply(scaleTranspose("0,2,4")).note()
+applyGradualLowpass                 Applies a constantly changing lowpass filter to the given sound.
+applyHannWindow                     Apply Hann window in-place
+arp                                 Selects indices in in stacked notes.
+arpWith                             Selects indices in in stacked notes.
+arrange                             Allows to arrange multiple patterns together over multiple cycles. Tak
+as                                  Sets properties in a batch.
+attack                              note("c3 e3 f3 g3").attack("<0 .1 .5>")
+bank                                Select the sound bank to use. To be used together with s. The bank nam
+beat                                creates a structure pattern from divisions of a cycle especially usefu
+begin                               a pattern of numbers from 0 to 1. Skips the beginning of each sample, 
+berlin                              Generates a continuous pattern of [berlin noise](conceived by Jame Coy
+binary                              Creates a pattern from a binary number.
+binaryN                             Creates a pattern from a binary number, padded to n bits long.
+bite                                Splits a pattern into the given number of slices, and plays them accor
+bpattack                            Sets the attack duration for the bandpass filter envelope.
+bpdecay                             Sets the decay duration for the bandpass filter envelope.
+bpenv                               Sets the bandpass filter envelope modulation depth.
+bpf                                 s("bd sd [~ bd] sd,hh*6").bpf("<1000 2000 4000 8000>")
+bpq                                 Sets the band-pass q-factor (resonance).
+bprelease                           Sets the release time for the bandpass filter envelope.
+bpsustain                           Sets the sustain amplitude for the bandpass filter envelope.
+brak                                Returns a new pattern where every other cycle is played once, twice as
+brand                               A continuous pattern of 0 or 1 (binary random)
+brandBy                             A continuous pattern of 0 or 1 (binary random), with a probability for
+byteBeatExpression                  Create byte beats with custom expressions
+byteBeatStartTime                   Create byte beats with custom expressions
+cat                                 The given items are concatenated, where each one takes one cycle.
+ccn                                 No description
+ccv                                 No description
+ceil                                Assumes a numerical pattern. Returns a new pattern with all values set
+channel                             choose the channel the pattern is sent to in superdirt
+channels                            Allows you to set the output channels on the interface
+choose                              Chooses from the given list of values (or patterns of values), accordi
+choose2                             As with choose, but the pattern that this method is called on should b
+chooseCycles                        Picks one of the elements at random each cycle.
+chooseInWith                        As with {chooseWith}, but the structure comes from the chosen values, 
+chooseWith                          Choose from the list of values (or patterns of values) using the given
+chop                                Cuts each sample into the given number of parts, allowing you to explo
+chorus                              mix control for the chorus effect
+chunk                               Divides a pattern into a given number of parts, then cycles through th
+chunkBack                           Like chunk, but cycles through the parts in reverse order. Known as ch
+chunkBackInto                       Like chunkInto, but moves backwards through the chunks.
+chunkInto                           Like chunk, but the function is applied to a looped subcycle of the so
+chyx                                BYTE BEATS
+clip                                Multiplies the duration with the given number. Also cuts samples off a
+coarse                              s("bd sd [~ bd] sd,hh*8").coarse("<1 4 8 16 32>")
+color                               Sets the color of the hap in visualizations like pianoroll or highligh
+compress                            Compress each cycle into the given timespan, leaving a gap
+compressor                          s("bd sd [~ bd] sd,hh*8")
+computeMagnitudes                   Compute squared magnitudes for peak finding
+contract                            Experimental
+control                             No description
+cosine                              A cosine signal between 0 and 1.
+cosine2                             A cosine signal between -1 and 1 (like cosine, but bipolar).
+cpm                                 Plays the pattern at the given cycles per minute.
+crossfade                           Equal Power Crossfade function. Smoothly transitions between signals A
+crush                               bit crusher effect.
+csoundm                             p1 -- Csound instrument either as a number (1-based, can be a fraction
+cut                                 In the style of classic drum-machines, cut will stop a playing sample 
+decay                               note("c3 e3 f3 g3").decay("<.1 .2 .3 .4>").sustain(0)
+defaultmidimap                      configures the default midimap, which is used when no "midimap" port i
+defragmentHaps                      Combines adjacent haps with the same value and whole. Only intended fo
+degrade                             Randomly removes 50% of events from the pattern. Shorthand for .degrad
+degradeBy                           Randomly removes events from the pattern by a given amount. 0 = 0% cha
+delay                               Sets the level of the delay signal.
+delayfeedback                       s("bd").delay(.25).delayfeedback("<.25 .5 .75 1>")
+delayspeed                          Sets the time of the delay effect.
+delaysync                           Sets the time of the delay effect in cycles.
+density                             Noise crackle density
+detune                              Set detune for stacked voices of supported oscillators
+discreteOnly                        Returns a new pattern, with 'continuous' haps (those without 'whole' t
+distort                             No description
+div                                 Divides each number by the given factor.
+djf                                 DJ filter, below 0.5 is low pass filter, above is high pass filter.
+drawLine                            "|" cycle separator
+drive                               filter overdrive for supported filter types
+drop                                Experimental
+dry                                 Set dryness of reverb. See room and size for more information about re
+duckattack                          the attack time of the duck effect
+duckdepth                           the amount of ducking applied to target orbit
+duckorbit                           modulate the amplitude of an orbit to create a "sidechain" like effect
+duration                            Sets the duration of the event in cycles. Similar to clip / legato, it
+each                                Applies a function to each of the running patterns separately. This is
+early                               Nudge a pattern to start earlier in time. Equivalent of Tidal's <~ ope
+echo                                Superimpose and offset multiple times, gradually decreasing the veloci
+echoWith                            Superimpose and offset multiple times, applying the given function eac
+end                                 The same as .begin, but cuts off the end off each sample.
+euclid                              Changes the structure of the pattern to form an Euclidean rhythm. Eucl
+euclidLegato                        Similar to euclid, but each pulse is held until the next pulse, so the
+euclidLegatoRot                     Similar to euclid, but each pulse is held until the next pulse, so the
+euclidRot                           Like euclid, but has an additional parameter for 'rotating' the result
+euclidish                           A 'euclid' variant with an additional parameter that morphs the result
+every                               An alias for firstOf
+expand                              Experimental
+extend                              Experimental
+fanchor                             controls the center of the filter envelope. 0 is unipolar positive, .5
+fast                                Speed up a pattern by the given factor. Used by "*" in mini notation.
+fastChunk                           Like chunk, but the cycles of the source pattern aren't repeated for e
+fastGap                             speeds up a pattern like fast, but rather than it playing multiple tim
+filter                              Filters haps using the given function
+filterHaps                          Returns a new Pattern, which only returns haps that meet the given tes
+filterValues                        As with filterHaps, but the function is applied to values inside haps.
+filterWhen                          Filters haps by their begin time
+findPeaks                           Find peaks in spectrum magnitudes
+firstCycle                          Queries the pattern for the first cycle, returning Haps. Mainly of use
+firstCycleValues                    Accessor for a list of values returned by querying the first cycle.
+firstOf                             Applies the given function every n cycles, starting from the first cyc
+fit                                 Makes the sample fit its event duration. Good for rhythmical loops lik
+floor                               Assumes a numerical pattern. Returns a new pattern with all values set
+fm                                  Sets the Frequency Modulation of the synth. Controls the modulation in
+fmap                                see withValue
+fmattack                            note("c e g b g e")
+fmdecay                             note("c e g b g e")
+fmenv                               Ramp type of fm envelope. Exp might be a bit broken..
+fmh                                 Sets the Frequency Modulation Harmonicity Ratio. Controls the timbre o
+fmsustain                           note("c e g b g e")
+fmwave                              waveform of the fm modulator
+focus                               Similar to compress, but doesn't leave gaps, and the 'focus' can be bi
+freq                                Set frequency of sound.
+fromBipolar                         Assumes a numerical pattern, containing bipolar values in the range -1
+fscope                              Renders an oscilloscope for the frequency domain of the audio signal.
+ftype                               Sets the filter type. The ladder filter is more aggressive. More types
+gain                                Controls the gain by an exponential amount.
+gap                                 Does absolutely nothing, but with a given metrical 'steps'
+generateGraph                       Creates a canvas element showing a graph of the given data.
+generateReverb                      Generates a reverb impulse response.
+gravityX                            The device's gravity x-axis value ranges from 0 to 1.
+gravityY                            The device's gravity y-axis value ranges from 0 to 1.
+gravityZ                            The device's gravity z-axis value ranges from 0 to 1.
+grow                                Experimental
+handleOutputBuffersToRetrieve       Add contents of output buffers just processed to output buffers
+hpattack                            Sets the attack duration for the highpass filter envelope.
+hpdecay                             Sets the decay duration for the highpass filter envelope.
+hpenv                               Sets the highpass filter envelope modulation depth.
+hpf                                 Applies the cutoff frequency of the high-pass filter.
+hpq                                 Controls the high-pass q-value.
+hprelease                           Sets the release time for the highpass filter envelope.
+hpsustain                           Sets the sustain amplitude for the highpass filter envelope.
+hurry                               Both speeds up the pattern (like 'fast') and the sample playback (like
+hush                                Silences a pattern.
+inhabit                             Picks patterns (or plain values) either from a list (by index) or a lo
+inhabitmod                          The same as inhabit, but if you pick a number greater than the size of
+inside                              Carries out an operation 'inside' a cycle.
+into                                Breaks a pattern into pieces according to the structure of a given pat
+invert                              Swaps 1s and 0s in a binary pattern.
+irand                               A continuous pattern of random integers, between 0 and n-1.
+irbegin                             Sets the beginning of the IR response sample
+iresponse                           Sets the sample to use as an impulse response for the reverb.
+irspeed                             Sets speed of the sample for the impulse response.
+isaw                                A sawtooth signal between 1 and 0 (like saw, but flipped).
+isaw2                               A sawtooth signal between 1 and -1 (like saw2, but flipped).
+iter                                Divides a pattern into a given number of subdivisions, plays the subdi
+iterBack                            Like iter, but plays the subdivisions in reverse order. Known as iter'
+itri                                An inverted triangle signal between 1 and 0 (like tri, but flipped).
+itri2                               An inverted triangle signal between -1 and 1 (like itri, but bipolar).
+jux                                 The jux function creates strange stereo effects, by applying a functio
+juxBy                               Jux with adjustable stereo width. 0 = mono, 1 = full stereo.
+keyDown                             returns true when a key or array of keys is held Key name reference
+label                               Sets the displayed text for an event on the pianoroll
+lastOf                              Applies the given function every n cycles, starting from the last cycl
+late                                Nudge a pattern to start later in time. Equivalent of Tidal's ~> opera
+layer                               "<0 2 4 6 ~ 4 ~ 2 0!3 ~!5>*8"
+leslie                              n("0,4,7").s("supersquare").leslie("<0 .4 .6 1>").osc()
+linger                              Selects the given fraction of the pattern and repeats that part to fil
+lock                                Specifies whether delaytime is calculated relative to cps.
+log                                 Writes the content of the current event to the console (visible in the
+logValues                           A simplified version of log which writes all "values" (various configu
+loop                                Loops the sample. Note that the tempo of the loop is not synced with t
+loopAt                              Makes the sample fit the given number of cycles by changing the speed.
+loopAtCps                           Makes the sample fit the given number of cycles and cps value, by chan
+loopBegin                           s("space").loop(1)
+loopEnd                             End the looping section at a specific point in the sample (inbetween b
+lpattack                            Sets the attack duration for the lowpass filter envelope.
+lpdecay                             Sets the decay duration for the lowpass filter envelope.
+lpenv                               Sets the lowpass filter envelope modulation depth.
+lpf                                 Applies the cutoff frequency of the low-pass filter.
+lpq                                 Controls the low-pass q-value.
+lprelease                           Sets the release time for the lowpass filter envelope.
+lpsustain                           Sets the sustain amplitude for the lowpass filter envelope.
+lrate                               Rate of modulation / rotation for leslie effect
+lsize                               Physical size of the cabinet in meters. Be careful, it might be slight
+markcss                             Overrides the css of highlighted events. Make sure to use single quote
+mask                                Returns silence when mask is 0 or "~"
+midi                                note("c4").midichan(1).midi('IAC Driver Bus 1')
+midibend                            note("c4").midibend(sine.slow(4).range(-0.4,0.4)).midi()
+midichan                            note("c4").midichan(1).midi()
+midicmd                             midicmd("clock*48,<start stop>/2").midi()
+midimaps                            Adds midimaps to the registry. Inside each midimap, control names (e.g
+midin                               let cc = await midin('IAC Driver Bus 1')
+midiport                            note("c a f e").midiport("<0 1 2 3>").midi()
+miditouch                           note("c4").miditouch(sine.slow(4).range(0,1)).midi()
+morph                               Takes two binary rhythms represented as lists of 1s and 0s, and a numb
+mousex                              The mouse's x position value ranges from 0 to 1.
+mousey                              The mouse's y position value ranges from 0 to 1.
+mul                                 Multiplies each number by the given factor.
+n                                   Selects the given index from the sample map. Numbers too high will wra
+never                               Shorthand for .sometimesBy(0, fn) (never calls fn)
+noise                               Adds pink noise to the mix
+note                                Plays the given note name or midi number. A note name consists of
+nrpnn                               No description
+nrpv                                No description
+octave                              Sets the default octave of a synth.
+off                                 Superimposes the function result on top of the original pattern, delay
+often                               Shorthand for .sometimesBy(0.75, fn)
+onTriggerTime                       make something happen on event time uses browser timeout which is inna
+onsetsOnly                          Returns a new pattern, with all haps without onsets filtered out. A ha
+orbit                               An orbit is a global parameter context for patterns. Patterns with the
+orientationAlpha                    The device's orientation alpha value ranges from 0 to 1.
+orientationBeta                     The device's orientation beta value ranges from 0 to 1.
+orientationGamma                    The device's orientation gamma value ranges from 0 to 1.
+osc                                 Sends each hap as an OSC message, which can be picked up by SuperColli
+outside                             Carries out an operation 'outside' a cycle.
+pace                                Experimental
+palindrome                          Applies rev to a pattern every other cycle, so that the pattern altern
+pan                                 Sets position in stereo.
+panchor                             note("c c4").penv(12).panchor("<0 .5 1 .5>")
+pattack                             Attack time of pitch envelope.
+pcurve                              Curve of envelope. Defaults to linear. exponential is good for kicks
+pdecay                              Decay time of pitch envelope.
+penv                                note("c")
+perlin                              Generates a continuous pattern of perlin noise, in the range 0..1.
+phaser                              Phaser audio effect that approximates popular guitar pedals.
+phasercenter                        The center frequency of the phaser in HZ. Defaults to 1000
+phaserdepth                         The amount the signal is affected by the phaser effect. Defaults to 0.
+phasersweep                         The frequency sweep range of the lfo for the phaser effect. Defaults t
+pianoroll                           note("c2 a2 eb2")
+pick                                Picks patterns (or plain values) either from a list (by index) or a lo
+pickF                               pickF lets you use a pattern of numbers to pick which function to appl
+pickOut                             Similar to pick, but it applies an outerJoin instead of an innerJoin.
+pickReset                           Similar to pick, but the choosen pattern is reset when its index is tr
+pickRestart                         Similar to pick, but the choosen pattern is restarted when its index i
+pickmod                             The same as pick, but if you pick a number greater than the size of th
+pickmodF                            The same as pickF, but if you pick a number greater than the size of t
+pickmodOut                          The same as pickOut, but if you pick a number greater than the size of
+pickmodReset                        The same as pickReset, but if you pick a number greater than the size 
+pickmodRestart                      The same as pickRestart, but if you pick a number greater than the siz
+pitchwheel                          Renders a pitch circle to visualize frequencies within one octave
+ply                                 The ply function repeats each event the given number of times.
+polymeter                           Experimental
+postgain                            Gain applied after all effects have been processed.
+prelease                            Release time of pitch envelope
+prepareInputBuffersToSend           Copy contents of input buffers to buffer actually sent to process
+press                               Syncopates a rhythm, by shifting each event halfway into its timespan.
+pressBy                             Like press, but allows you to specify the amount by which each event i
+progNum                             note("c4").progNum(10).midichan(1).midi()
+pure                                A discrete value that repeats once per cycle.
+pw                                  controls the pulsewidth of the pulse oscillator
+pwrate                              controls the lfo rate for the pulsewidth of the pulse oscillator
+pwsweep                             controls the lfo sweep for the pulsewidth of the pulse oscillator
+queryArc                            Query haps inside the given time span.
+rand                                A continuous pattern of random numbers, between 0 and 1.
+rand2                               A continuous pattern of random numbers, between -1 and 1
+range                               Assumes a numerical pattern, containing unipolar values in the range 0
+range2                              Assumes a numerical pattern, containing bipolar values in the range -1
+rangex                              Assumes a numerical pattern, containing unipolar values in the range 0
+rarely                              Shorthand for .sometimesBy(0.25, fn)
+ratio                               .freq().s("piano")
+readInputs                          Read next web audio block to input buffers
+reallocateChannelsIfNeeded          Handles dynamic reallocation of input/output channels buffer (channel 
+ref                                 exposes a custom value at query time. basically allows mutating state 
+register                            Registers a new pattern method. The method is added to the Pattern cla
+release                             note("c3 e3 g3 c4").release("<0 .1 .4 .6 1>/2")
+removeUndefineds                    Returns a new pattern, with haps containing undefined values removed f
+repeatCycles                        Repeats each cycle the given number of times.
+reset                               Resets the pattern to the start of the cycle for each onset of the res
+restart                             Restarts the pattern for each onset of the restart pattern. While rese
+rev                                 Reverse all haps in a pattern
+ribbon                              Loops the pattern inside an offset for cycles. If you think of the ent
+room                                Sets the level of reverb.
+roomdim                             Reverb lowpass frequency at -60dB (in hertz). When this property is ch
+roomfade                            Reverb fade time (in seconds). When this property is changed, the reve
+roomlp                              Reverb lowpass starting frequency (in hertz). When this property is ch
+roomsize                            Sets the room size of the reverb, see room. When this property is chan
+rootNotes                           Maps the chords of the incoming pattern to root notes in the given oct
+rotationAlpha                       The device's rotation around the alpha-axis value ranges from 0 to 1.
+rotationBeta                        The device's rotation around the beta-axis value ranges from 0 to 1.
+rotationGamma                       The device's rotation around the gamma-axis value ranges from 0 to 1.
+round                               Assumes a numerical pattern. Returns a new pattern with all values rou
+run                                 A discrete pattern of numbers from 0 to n-1
+s                                   s("bd hh")
+samples                             Loads a collection of samples to use with s
+saw                                 A sawtooth signal between 0 and 1.
+saw2                                A sawtooth signal between -1 and 1 (like saw, but bipolar).
+scale                               Turns numbers into notes in the scale (zero indexed). Also sets scale 
+scaleTranspose                      Transposes notes inside the scale by the number of steps. Expected to 
+scope                               Renders an oscilloscope for the time domain of the audio signal.
+scramble                            Slices a pattern into the given number of parts, then plays those part
+scrub                               s("amen/4").fit().scrub("{0@3 0@2 4@3}%8".div(16))
+segment                             Samples the pattern at a rate of n events per cycle. Useful for turnin
+seq                                 Like cat, but the items are crammed into one cycle.
+seqPLoop                            Similarly to arrange, allows you to arrange multiple patterns together
+sequence                            See fastcat
+sequenceP                           Takes a list of patterns, and returns a pattern of lists.
+setContext                          Returns a new pattern with the context field set to every hap set to t
+setcpm                              Changes the global tempo to the given cycles per minute
+shape                               s("bd sd [~ bd] sd,hh*8").shape("<0 .2 .4 .6 .8>")
+shiftInputBuffers                   Shift left content of input buffers to receive new web audio block
+shiftOutputBuffers                  Shift left content of output buffers to receive new web audio block
+shiftPeaks                          Shift peaks and regions of influence by pitchFactor into new specturm
+showFirstCycle                      More human-readable version of the firstCycleValues accessor.
+shrink                              Experimental
+shuffle                             Slices a pattern into the given number of parts, then plays those part
+silence                             Does absolutely nothing..
+sine                                A sine signal between 0 and 1.
+sine2                               A sine signal between -1 and 1 (like sine, but bipolar).
+slice                               Chops samples into the given number of slices, triggering those slices
+slider                              Displays a slider widget to allow the user manipulate a value
+slow                                Slow down a pattern over the given number of cycles. Like the "/" oper
+slowcat                             slowcat("e5", "b4", ["d5", "c5"])
+slowcatPrime                        No description
+someCycles                          Shorthand for .someCyclesBy(0.5, fn)
+someCyclesBy                        Randomly applies the given function by the given probability on a cycl
+sometimes                           Applies the given function with a 50% chance
+sometimesBy                         Randomly applies the given function by the given probability. Similar 
+sortHapsByPart                      Returns a new pattern, which returns haps sorted in temporal order. Ma
+source                              Define a custom webaudio node to use as a sound source.
+spectrum                            Renders a spectrum analyzer for the incoming audio signal.
+speed                               Changes the speed of sample playback, i.e. a cheap way of changing pit
+spiral                              Displays a spiral visual.
+splice                              Works the same as slice, but changes the playback speed of each slice 
+splitQueries                        Returns a new pattern, with queries split at cycle boundaries. This ma
+spread                              Set the stereo pan spread for supported oscillators
+square                              A square signal between 0 and 1.
+square2                             A square signal between -1 and 1 (like square, but bipolar).
+squeeze                             Pick from the list of values (or patterns of values) via the index usi
+squiz                               "A simplistic pitch-raising algorithm. It's not meant to sound natural
+stack                               The given items are played at the same time at the same length.
+stepalt                             Experimental
+stepcat                             'Concatenates' patterns like fastcat, but proportional to a number of 
+stretch                             Changes the speed of sample playback, i.e. a cheap way of changing pit
+striate                             Cuts each sample into the given number of parts, triggering progressiv
+stripContext                        Returns a new pattern with the context field of every hap set to an em
+struct                              note("c,eb,g")
+stut                                Deprecated. Like echo, but the last 2 parameters are flipped.
+sub                                 Like add, but the given numbers are subtracted.
+superimpose                         "<0 2 4 6 ~ 4 ~ 2 0!3 ~!5>*8"
+sustain                             note("c3 e3 f3 g3").decay(.2).sustain("<0 .1 .4 .6 1>")
+swing                               s("hh*8").swing(4)
+swingBy                             The function swingBy x n breaks each cycle into n slices, and then del
+sysex                               No description
+sysexdata                           No description
+sysexid                             No description
+tag                                 Tags each Hap with an identifier. Good for filtering. The function pop
+take                                Experimental
+time                                A signal representing the cycle time.
+timecat                             Aliases for stepcat
+toBipolar                           Assumes a numerical pattern, containing unipolar values in the range 0
+tour                                Experimental
+transpose                           M = major
+tremolo                             modulate the amplitude of a sound with a continuous waveform
+tremolodepth                        depth of amplitude modulation
+tremolophase                        alter the phase of the modulation waveform
+tremoloshape                        shape of amplitude modulation
+tremoloskew                         alter the shape of the modulation waveform
+tremolosync                         modulate the amplitude of a sound with a continuous waveform
+tri                                 A triangle signal between 0 and 1.
+tri2                                A triangle signal between -1 and 1 (like tri, but bipolar).
+undegrade                           s("hh*8").undegrade()
+undegradeBy                         s("hh*8").undegradeBy(0.2)
+unison                              Set number of stacked voices for supported oscillators
+unit                                Used in conjunction with speed, accepts values of "r" (rate, default b
+velocity                            Sets the velocity from 0 to 1. Is multiplied together with gain.
+vib                                 Applies a vibrato to the frequency of the oscillator.
+vibmod                              Sets the vibrato depth in semitones. Only has an effect if vibrato | v
+voicing                             All of the above controls are optional, except chord. If you pass a pa
+voicings                            stack("<C^7 A7 Dm7 G7>".voicings('lefthand'), "<C3 A2 D3 G2>").note()
+vowel                               Formant filter to make things sound like vowels.
+wchoose                             Chooses randomly from the given list of elements by giving a probabili
+wchooseCycles                       Picks one of the elements at random each cycle by giving a probability
+when                                Applies the given function whenever the given pattern is in a true sta
+whenKey                             Do something on a keypress, or array of keypresses Key name reference
+withContext                         Returns a new pattern with the given function applied to the context f
+withHap                             As with withHaps, but applies the function to every hap, rather than e
+withHapSpan                         Similar to withQuerySpan, but the function is applied to the timespans
+withHapTime                         As with withHapSpan, but the function is applied to both the begin and
+withHaps                            Returns a new pattern with the given function applied to the list of h
+withLoc                             Returns a new pattern with the given location information added to the
+withQuerySpan                       Returns a new pattern, where the given function is applied to the quer
+withQueryTime                       As with withQuerySpan, but the function is applied to both the begin a
+withValue                           Returns a new pattern, with the function applied to the value of each 
+within                              Use within to apply a function to only a part of a pattern.
+wordfall                            Displays a vertical pianoroll with event labels. Supports all the same
+writeOutputs                        Write next web audio block from output buffers
+xfade                               0 = (full left, no right)
+zip                                 Experimental
+zoom                                s("bd*2 hh*3 [sd bd]*2 perc").zoom(0.25, 0.75)

@@ -1,0 +1,281 @@
+API Reference
+This is the long list of functions you can use. Remember that you don't need to remember all of those and that you can already make music with a small set of functions!
+
+
+gain
+Controls the gain by an exponential amount.
+
+
+amount : number | Pattern - gain.
+s("hh*8").gain(".4!2 1 .4!2 1 .4 1").fast(2)
+gap
+Does absolutely nothing, but with a given metrical 'steps'
+
+
+steps : number
+gap(3) // "~@3"
+generateGraph
+Creates a canvas element showing a graph of the given data.
+
+
+data : Float32Array - An array of numbers, or a Float32Array.
+width : number - Width in pixels of the canvas.
+height : number - Height in pixels of the canvas.
+min : number - Minimum value of data for the graph (lower edge).
+max : number - Maximum value of data in the graph (upper edge).
+generateReverb
+Generates a reverb impulse response.
+
+
+params : Object - TODO: Document the properties.
+callback : function - Function to call when the impulse response has been generated. The impulse response is passed to this function as its parameter. May be called immediately within the current execution context, or later.
+gravityX
+Synonyms: gravX
+
+The device's gravity x-axis value ranges from 0 to 1.
+
+
+n(gravityX.segment(4).range(0,7)).scale("C:minor")
+gravityY
+Synonyms: gravY
+
+The device's gravity y-axis value ranges from 0 to 1.
+
+
+n(gravityY.segment(4).range(0,7)).scale("C:minor")
+gravityZ
+Synonyms: gravZ
+
+The device's gravity z-axis value ranges from 0 to 1.
+
+
+n(gravityZ.segment(4).range(0,7)).scale("C:minor")
+grow
+Experimental
+
+Progressively grows the pattern by 'n' steps until the full pattern is played, or if a second value is given (using mininotation list syntax with :), that number of times. A positive number will progressively grow steps from the start of a pattern, and a negative number from the end.
+
+
+"tha dhi thom nam".grow("1").sound()
+.bank("mridangam")
+"tha dhi thom nam".grow("-1").sound()
+.bank("mridangam")
+"tha dhi thom nam".grow("1 -1").sound().bank("mridangam").pace(4)
+note("0 1 2 3 4 5 6 7".scale("C:ritusen")).sound("folkharp")
+   .grow("1 -1").pace(8)
+handleOutputBuffersToRetrieve
+Add contents of output buffers just processed to output buffers
+
+
+hpattack
+Synonyms: hpa
+
+Sets the attack duration for the highpass filter envelope.
+
+
+attack : number | Pattern - time of the highpass filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.hpf(500)
+.hpa("<.5 .25 .1 .01>/4")
+.hpenv(4)
+hpdecay
+Synonyms: hpd
+
+Sets the decay duration for the highpass filter envelope.
+
+
+decay : number | Pattern - time of the highpass filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.hpf(500)
+.hpd("<.5 .25 .1 0>/4")
+.hps(0.2)
+.hpenv(4)
+hpenv
+Synonyms: hpe
+
+Sets the highpass filter envelope modulation depth.
+
+
+modulation : number | Pattern - depth of the highpass filter envelope between 0 and n
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.hpf(500)
+.hpa(.5)
+.hpenv("<4 2 1 0 -1 -2 -4>/4")
+hpf
+Synonyms: hp, hcutoff
+
+Applies the cutoff frequency of the high-pass filter.
+
+When using mininotation, you can also optionally add the 'hpq' parameter, separated by ':'.
+
+
+frequency : number | Pattern - audible between 0 and 20000
+s("bd sd [~ bd] sd,hh*8").hpf("<4000 2000 1000 500 200 100>")
+s("bd sd [~ bd] sd,hh*8").hpf("<2000 2000:25>")
+hpq
+Synonyms: hresonance
+
+Controls the high-pass q-value.
+
+
+q : number | Pattern - resonance factor between 0 and 50
+s("bd sd [~ bd] sd,hh*8").hpf(2000).hpq("<0 10 20 30>")
+hprelease
+Synonyms: hpr
+
+Sets the release time for the highpass filter envelope.
+
+
+release : number | Pattern - time of the highpass filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.clip(.5)
+.hpf(500)
+.hpenv(4)
+.hpr("<.5 .25 .1 0>/4")
+.release(.5)
+hpsustain
+Synonyms: hps
+
+Sets the sustain amplitude for the highpass filter envelope.
+
+
+sustain : number | Pattern - amplitude of the highpass filter envelope
+note("c2 e2 f2 g2")
+.sound('sawtooth')
+.hpf(500)
+.hpd(.5)
+.hps("<0 .25 .5 1>/4")
+.hpenv(4)
+hurry
+Both speeds up the pattern (like 'fast') and the sample playback (like 'speed').
+
+
+s("bd sd:2").hurry("<1 2 4 3>").slow(1.5)
+hush
+Silences a pattern.
+
+
+stack(
+  s("bd").hush(),
+  s("hh*3")
+)
+inhabit
+Synonyms: pickSqueeze
+
+Picks patterns (or plain values) either from a list (by index) or a lookup table (by name). Similar to pick, but cycles are squeezed into the target ('inhabited') pattern.
+
+
+pat : Pattern
+xs : *
+"<a b [a,b]>".inhabit({a: s("bd(3,8)"),
+                            b: s("cp sd")
+                           })
+s("a@2 [a b] a".inhabit({a: "bd(3,8)", b: "sd sd"})).slow(4)
+inhabitmod
+Synonyms: pickmodSqueeze
+
+The same as inhabit, but if you pick a number greater than the size of the list, it wraps around, rather than sticking at the maximum value. For example, if you pick the fifth pattern of a list of three, you'll get the second one.
+
+
+pat : Pattern
+xs : *
+inside
+Carries out an operation 'inside' a cycle.
+
+
+"0 1 2 3 4 3 2 1".inside(4, rev).scale('C major').note()
+// "0 1 2 3 4 3 2 1".slow(4).rev().fast(4).scale('C major').note()
+into
+Breaks a pattern into pieces according to the structure of a given pattern. True values in the given pattern cause the corresponding subcycle of the source pattern to be looped, and for an (optional) given function to be applied. False values result in the corresponding part of the source pattern to be played unchanged.
+
+
+sound("bd sd ht lt").into("1 0", hurry(2))
+invert
+Synonyms: inv
+
+Swaps 1s and 0s in a binary pattern.
+
+
+s("bd").struct("1 0 0 1 0 0 1 0".lastOf(4, invert))
+irand
+A continuous pattern of random integers, between 0 and n-1.
+
+
+n : number - max value (exclusive)
+// randomly select scale notes from 0 - 7 (= C to C)
+n(irand(8)).struct("x x*2 x x*3").scale("C:minor")
+irbegin
+Synonyms: ir
+
+Sets the beginning of the IR response sample
+
+
+begin : string | Pattern - between 0 and 1
+samples('github:switchangel/pad')
+$: s("brk/2").fit().scrub(irand(16).div(16).seg(8)).ir("swpad:4").room(.65).irspeed("-2").irbegin("<0 .5 .75>/2").roomsize(.6)
+iresponse
+Synonyms: ir
+
+Sets the sample to use as an impulse response for the reverb.
+
+
+sample : string | Pattern - to use as an impulse response
+s("bd sd [~ bd] sd").room(.8).ir("<shaker_large:0 shaker_large:2>")
+irspeed
+Sets speed of the sample for the impulse response.
+
+
+speed : string | Pattern
+samples('github:switchangel/pad')
+$: s("brk/2").fit().scrub(irand(16).div(16).seg(8)).ir("swpad:4").room(.2).irspeed("<2 1 .5>/2").irbegin(.5).roomsize(.5)
+isaw
+A sawtooth signal between 1 and 0 (like saw, but flipped).
+
+
+note("<c3 [eb3,g3] g2 [g3,bb3]>*8")
+.clip(isaw.slow(2))
+n(isaw.range(0,8).segment(8))
+.scale('C major')
+isaw2
+A sawtooth signal between 1 and -1 (like saw2, but flipped).
+
+
+iter
+Divides a pattern into a given number of subdivisions, plays the subdivisions in order, but increments the starting subdivision each cycle. The pattern wraps to the first subdivision after the last subdivision is played.
+
+
+note("0 1 2 3".scale('A minor')).iter(4)
+iterBack
+Synonyms: iterback
+
+Like iter, but plays the subdivisions in reverse order. Known as iter' in tidalcycles
+
+
+note("0 1 2 3".scale('A minor')).iterBack(4)
+itri
+An inverted triangle signal between 1 and 0 (like tri, but flipped).
+
+
+n(itri.segment(8).range(0,7)).scale("C:minor")
+itri2
+An inverted triangle signal between -1 and 1 (like itri, but bipolar).
+
+
+jux
+The jux function creates strange stereo effects, by applying a function to a pattern, but only in the right-hand channel.
+
+
+s("bd lt [~ ht] mt cp ~ bd hh").jux(rev)
+s("bd lt [~ ht] mt cp ~ bd hh").jux(press)
+s("bd lt [~ ht] mt cp ~ bd hh").jux(iter(4))
+juxBy
+Synonyms: juxby
+
+Jux with adjustable stereo width. 0 = mono, 1 = full stereo.
+
+
+s("bd lt [~ ht] mt cp ~ bd hh").juxBy("<0 .5 1>/2", rev)
