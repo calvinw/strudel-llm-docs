@@ -2,52 +2,16 @@
 
 A repository designed for collaborative music composition between humans and LLMs using [Strudel](https://strudel.cc/), a browser-based live coding environment that ports TidalCycles pattern language to JavaScript.
 
-## Getting Started
+## Quick Start
 
-**1. Clone this repository:**
-```bash
-git clone https://github.com/calvinw/strudel-llm-docs.git
-cd strudel-llm-docs
-```
+**For complete setup instructions, see [CLAUDE.md](CLAUDE.md)** - includes MCP server installation, documentation setup, and comprehensive composition methodology.
 
-**2. Install the Remote Strudel MCP Server:**
-
-The Remote MCP Server is located at: https://strudel-llm.mcp.mathplosion.com/sse
-
-We show the installation process for Claude Code below, but the process is similar for other LLM CLI tools.
-
-*Option A: Using the included script:*
-```bash
-./install_strudel_mcp_claude.sh
-```
-
-*Option B: Manual installation (if you prefer not to use the script):*
-```bash
-claude mcp add --transport sse strudelMcp https://strudel-llm.mcp.mathplosion.com/sse
-```
-
-**3. Start your LLM CLI tool:**
-```bash
-claude
-```
-
-If you are using another LLM CLI tool, start your CLI as normal after installing the Remote MCP Server above.
-
-**4. Set up LLM documentation:**
-- **Important**: The Remote MCP Server is intentionally minimal and contains no documentation
-- This allows you to choose and customize the documentation your LLM uses
-- Have your LLM review the `docs/` directory which contains curated Strudel documentation for LLMs
-- Also direct your LLM to explore the official [Strudel website](https://strudel.cc/) for comprehensive reference
-- You can add your own documentation files to the `docs/` directory for specific LLM training
-
-**5. Get your Strudel session ID:**
-- Visit https://strudel-llm.mcp.mathplosion.com/strudel
-- You'll see a Session ID displayed on the page (e.g., "fox8" or "blue42")
-- Copy this Session ID - you'll provide it to your LLM when you start working with Strudel
-
-**6. Begin collaborative composition:**
-- Provide the session ID to your LLM
-- Start creating music together using the anchor framework methodology!
+**Quick summary:**
+1. Clone this repository
+2. Install the Strudel MCP Server (see [CLAUDE.md](CLAUDE.md) for details)
+3. Have your LLM read [CLAUDE.md](CLAUDE.md) for documentation workflow
+4. Get your Strudel session ID from https://strudel-llm.mcp.mathplosion.com/strudel
+5. Start composing!
 
 ## What This Repository Provides
 
@@ -69,25 +33,17 @@ The Remote MCP Server allows you to:
 
 This work builds on **[strudel-llm-mirror](https://github.com/calvinw/strudel-llm-mirror)**, a fork of the original Strudel project specifically adapted for LLM experimentation and collaborative music creation.
 
-## Quick Start
-
-1. **Install the Remote MCP Server** (if using Claude Code):
-   ```bash
-   ./install_strudel_mcp_claude.sh
-   ```
-
-2. **Visit the web interface** to get your session ID:
-   https://strudel-llm.mcp.mathplosion.com/strudel
-
-3. **Explore the examples**:
-   - `eminor_composition_process.js` - Complete E minor composition walkthrough
-   - `dminor_composition_process.js` - D minor with descending melody focus
-
 ## Documentation
 
-- **[CLAUDE.md](CLAUDE.md)** - Complete project documentation, setup instructions, and composition methodology
-- **[docs/](docs/)** - Comprehensive Strudel documentation and tutorials
-- **[compositions/](compositions/)** - Directory for saving completed works
+**Main Documentation:**
+- **[CLAUDE.md](CLAUDE.md)** ← **Start here!** Complete setup, LLM instructions, and composition methodology
+
+**Curated Strudel Documentation (in `docs/` directory):**
+- **[docs/ref/](docs/ref/)** - Function Reference (split alphabetically for efficient LLM usage)
+- **[docs/sounds/](docs/sounds/)** - Sound/Instrument Guide (synths, samples, drum machines, wavetables)
+
+**Your Work:**
+- **[compositions/](compositions/)** - Save your completed compositions here
 
 ## Composition Examples: Traditional Music Theory in Code
 
