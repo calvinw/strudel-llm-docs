@@ -1,0 +1,4 @@
+{
+  "image": "ghcr.io/calvinw/ai-course-devcontainer:latest",
+  "postCreateCommand": "setup-env.sh && install-mcps.sh || true"
+}
