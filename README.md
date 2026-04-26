@@ -136,9 +136,18 @@ Add the following SSE URL as a connector/MCP server in your Claude.ai or Mistral
 https://strudel-llm.mcp.mathplosion.com/sse
 ```
 
-Then open the Strudel UI in another window, copy the session ID, and paste it into the chat. From there the workflow is the same — ask it to play Strudel music!
+### Claude.ai
 
-*(Images showing the Claude.ai and Mistral.ai connector setup coming soon.)*
+![Claude.ai connector setup](docs/images/connector-claudeai.png)
+
+### Mistral.ai
+
+Here is a video showing how to set up the Mistral.ai connector:
+https://youtu.be/bZR2ctE2LyQ?si=YUighkD7GI3-PkOe
+
+![Mistral.ai connector setup](docs/images/connector-mistralai.png)
+
+Then open the Strudel UI in another window, copy the session ID, and paste it into the chat. From there the workflow is the same — ask it to play Strudel music!
 
 ---
 
