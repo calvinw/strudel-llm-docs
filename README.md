@@ -127,9 +127,9 @@ Ask it to play you some Strudel music!
 
 ---
 
-## Running as a Connector in Claude.ai or Mistral.ai
+## Running as a Connector in Claude.ai or Mistral.ai (supported on Free Tier)
 
-Both Claude.ai and Mistral.ai support remote MCP servers as connectors, letting you use the Strudel MCP directly from the chat UI — no terminal required.
+Both Claude.ai and Mistral.ai support remote MCP servers as connectors, letting you use the Strudel MCP directly from the chat UI — no terminal required. Both support connectors on the free tier.
 
 Add the following SSE URL as a connector/MCP server in your Claude.ai or Mistral.ai settings:
 ```
