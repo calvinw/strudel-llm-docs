@@ -1,3 +1,16 @@
+# Skillshare synced targets - generated from .skillshare/skills/
+# Run local-setup/install_skills.sh to populate locally
+.agents/skills/
+.claude/skills/
+.codex/
+.crush/skills/
+.gemini/skills/
+.github/skills/
+.opencode/skills/
+
+# Local Claude Code settings (user-specific, not project-wide)
+.claude/settings.local.json
+
 # Backup directory
 bak/
 

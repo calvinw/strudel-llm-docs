@@ -2,96 +2,179 @@
 
 A repository designed for collaborative music composition between humans and LLMs using [Strudel](https://strudel.cc/), a browser-based live coding environment that ports TidalCycles pattern language to JavaScript.
 
-## Quick Start
+## What This Repo Provides
 
-**For complete setup instructions, see [CLAUDE.md](CLAUDE.md)** - includes MCP server installation, documentation setup, and comprehensive composition methodology.
+### The MCP Server and its User Interface
 
-**Quick summary:**
-1. Clone this repository
-2. Install the Strudel MCP Server (see [CLAUDE.md](CLAUDE.md) for details)
-3. Have your LLM read [CLAUDE.md](CLAUDE.md) for documentation workflow
-4. Get your Strudel session ID from https://strudel-llm.mcp.mathplosion.com/strudel
-5. Start composing!
+This repo allows you to use a hosted remote MCP server that your LLM can connect to in order to play and edit Strudel compositions in real time. The MCP server is available below and does not need any authentication:
 
-## What This Repository Provides
-
-This repository contains **documentation and examples designed for LLMs** to understand and assist with Strudel composition. The included composition examples demonstrate traditional music theory concepts implemented through code.
-
-## Integration with Remote Strudel MCP Server
-
-This project is designed to work with the **Remote Strudel MCP Server**, which enables direct integration between LLMs and live Strudel sessions:
-
-- **Remote MCP Server**: https://strudel-llm.mcp.mathplosion.com/sse
-- **Web Interface**: https://strudel-llm.mcp.mathplosion.com/strudel
-
-The Remote MCP Server allows you to:
-- Send code directly to a browser Strudel session
-- Get real-time feedback on compositions
-- Iterate on musical ideas collaboratively with LLMs
-
-## Based on Strudel for LLM Experimentation
-
-This work builds on **[strudel-llm-mirror](https://github.com/calvinw/strudel-llm-mirror)**, a fork of the original Strudel project specifically adapted for LLM experimentation and collaborative music creation.
-
-## Documentation
-
-**Main Documentation:**
-- **[CLAUDE.md](CLAUDE.md)** ← **Start here!** Complete setup, LLM instructions, and composition methodology
-
-**Curated Strudel Documentation (in `docs/` directory):**
-- **[docs/ref/](docs/ref/)** - Function Reference (split alphabetically for efficient LLM usage)
-- **[docs/sounds/](docs/sounds/)** - Sound/Instrument Guide (synths, samples, drum machines, wavetables)
-
-**Your Work:**
-- **[compositions/](compositions/)** - Save your completed compositions here
-
-## Composition Examples: Traditional Music Theory in Code
-
-The included examples demonstrate **well-established music composition techniques** translated into Strudel code:
-
-### 4-Part Harmony and Chord Progressions
-- **Traditional approach**: Classic 4-part harmony writing with chord progressions
-- **Melody and counterpoint**: Systematic melody writing with harmonic counterpoint
-- **Anchor Framework**: Uses harmonic "anchor points" where fast-moving voices align with slower harmonic rhythm
-
-### Featured Compositions
-
-#### 🎵 E Minor Composition Process
-**[📁 View Code](eminor_composition_process.js)** | **[▶️ Play Live on Strudel.cc](https://strudel.cc/#Ly8gVGhpcyBzaG93cyBob3cgQ2xhdWRlIGFuZCBJIGNyZWF0ZWQgdGhpcyBjb21wb3NpdGlvbiAKCi8vRmlyc3QgSSBhc2sgaXQgdG8gc3RhcnQgd2l0aCBzb21lIHNpbXBsZSBjaG9yZCBwcm9ncmVzc2lvbnMgaW4gRTptaW5vcgoKLy9IZXJlcyB0aGUgcHJvbXB0IEkgdXNlOgoKLyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCk1ha2UgYSBzdGFjayB3aXRoIDQgcGlhbm9zIGluIHRoZSBrZXkgZGVzaXJlZC4KClRoZSAxc3QgYW5kIDJuZCBpbnN0cnVtZW50cyBzaG91bGQgaGF2ZSA0IHN0ZXBzIGFuZCBoYXZlIG5vdGVzIGluIGVhY2ggc3RlcCBmcm9tIHRoZSBzY2FsZSBjaG9zZW4uIApUaGVzZSB0d28gaW5zdHJ1bWVudHMgc2hvdWxkIGhhdmUgbm90ZXMgdGhhdCBjb21lIGZyb20gY2hvcmRzIGZvciB0aGF0IGtleSBhbmQgc28gdGhleSBoYXJtb25pemUuCgpUaGUgM3JkIGFuZCA0dGggaW5zdHJ1bWVudHMgd2lsbCBoYXJtb25pemUgd2l0aCBpbnN0cnVtZW50cyAxIGFuZCAyIG9uIGV2ZXJ5IDNyZCBzdGVwIG9mIHRoZWlyIDEyIHN0ZXBzLiAKU28gZmlyc3Qgc3RlcCAxIHdpbGwgaGFybW9uaXplIHdpdGggdGhlIGZpcnN0IHN0ZXAgaW4gaW5zdHJ1bWVudHMgMSBhbmQgdGhlbiB0aGUgNHRoIHN0ZXAgd2lsbCBoYXJtb25pemUgCndpdGggc3RlcCAyIG9mIHBpYW5vIDEgYW5kIDIuIAoKUmVtZW1iZXIgd2hlbiBpbnN0cnVtZW50cyBoYXZlIGEgbnVtYmVyIG9mIHN0ZXBzIHRoZXkgYWxsIGZpdCBpbnRvIHRoZSBzYW1lIGN5Y2xlIHNvIHRoZSBpbnN0cnVtZW50cyAzIGFuZCA0IAphcmUgcGxheWluZyB0aHJlZSB0aW1lcyBhcyBmYXN0IGFzIGluc3RydW1lbnQgMSBhbmQgMi4gCgpGaXJzdCBjcmVhdGUgYSB2ZXJzaW9uIHRoYXQgaGFzIHRoZXNlICJhbmNob3IiIG5vdGVzIG1hdGNoaW5nIGZvciBhbGwgNCBpbnN0cnVtZW50cyBhbmQgdGhlbiBmaWxsIGluIHRoZSAKcmVzdCBvZiB0aGUgbm90ZXMgaW4gaW5zdHJ1bWVudCAzIGFuZCA0IHdpdGggcmVzdHMgZm9yIG5vdy4gCioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiovCgovL0ltIHN1cmUgdGhpcyBpcyBhbGwgc3RhbmRhcmQgTXVzaWMgQ29tcCAxMDEsIGJ1dCBJIGRvbnQga25vdyBpdCB0aGF0IHdlbGwKLy8gYW5kIGl0cyBmdW4gdG8gbGVhcm4gZnJvbSBDbGF1ZGUsIGl0IHVuZGVyc3RhbmRzIGFsbCB0aGUgY2hvcmRzIGFuZCBzY2FsZXMsIGV0YwovLyBBbmQgdGhlIG1lbG9kaWVzIGFuZCBsaXR0bGUgZWRpdHMgYXJlIHN1cGVyIGVhc3kgdG8gZ2V0IENsYXVkZSB0byBkbyB3aXRoIHlvdS4KLy8gSnVzdCBhc2sgaXQgdG8gcmVkbyBpdCBmb3IgeW91IGlmIGl0IGRvZXNudCB0dXJuIG91dCBzb3VuZGluZyBkZWNlbnQuCgoKY29uc3QgZ19zY2FsZSA9ICJFOm1pbm9yIgoKLy9TdGVwIDA6IENsYXVkZSBwcm9kdWNlZCB0aGlzIHNldCBvZiBwaWFubyBjaG9yZHMgZm9yIEU6bWlub3IKLy8gSSB0aGluayB3ZSBsb29rZWQgYWJvdXQgYSBkb3plbiBkaWZmZXJlbnQgZXhhbXBsZXMgb2Yga2V5cyBhbmQgdGhlc2UgcHJvZ3Jlc3Npb25zIAovLyBiZWZvcmUgSSBmb3VuZCBvbmUgSSBsaWtlZC4KY29uc3QgZW1fc3RlcDAgPSBzdGFjaygKICAgIC8vIEluc3RydW1lbnQgMTogNC1zdGVwIGNob3JkIHByb2dyZXNzaW9uIChtaWQtcmFuZ2UpCiAgICBuKCIwIDIgMSAzIikuc2NhbGUoZ19zY2FsZSkuc291bmQoInBpYW5vIikuZ2FpbiguNiksCgogICAgLy8gSW5zdHJ1bWVudCAyOiA0LXN0ZXAgaGFybW9uaXppbmcgYmFzcyAobW9kZXJhdGUgbG93IHJhbmdlKQogICAgbigiLTcgLTUgLTYgLTQiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgicGlhbm8iKS5nYWluKC42KSwKCiAgICAvLyBJbnN0cnVtZW50IDM6IDEyLXN0ZXAgKGFuY2hvciBvbiBzdGVwcyAxLDQsNywxMCkgCiAgICBuKCItMiB%2BIH4gNCB%2BIH4gMyB%2BIH4gNSB%2BIH4iKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgicGlhbm8iKS5nYWluKC42KSwKCiAgICAvLyBJbnN0cnVtZW50IDQ6IDEyLXN0ZXAgKGFuY2hvciBvbiBzdGVwcyAxLDQsNywxMCkKICAgIG4oIjcgfiB%2BIDcgfiB%2BIDUgfiB%2BIDMgfiB%2BIikuc2NhbGUoZ19zY2FsZSkuc291bmQoInBpYW5vIikuZ2FpbiguOCkKKTsKCi8vU3RlcCAxOiBJIHBpY2tlZCBzb21lIGluc3RydW1lbnRzIChjbGF1ZGVzIG5vdCBnb29kIGF0IHRoaXMpCmNvbnN0IGVtX3N0ZXAxID0gc3RhY2soCiAgICAvLyBJbnN0cnVtZW50IDE6IDQtc3RlcCBjaG9yZCBwcm9ncmVzc2lvbiAobWlkLXJhbmdlKQogICAgbigiMCAyIDEgMyIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9wYWRfc3dlZXAiKS5nYWluKC42KSwKCiAgICAvLyBJbnN0cnVtZW50IDI6IDQtc3RlcCBoYXJtb25pemluZyBiYXNzIChtb2RlcmF0ZSBsb3cgcmFuZ2UpCiAgICBuKCItNyAtNSAtNiAtNCIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9wYWRfd2FybSIpLmdhaW4oLjYpLAoKICAgIC8vIEluc3RydW1lbnQgMzogMTItc3RlcCAoYW5jaG9yIG9uIHN0ZXBzIDEsNCw3LDEwKSAKICAgIG4oIi0yIH4gfiA0IH4gfiAzIH4gfiA1IH4gfiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9zeW50aF9iYXNzXzEiKS5nYWluKC42KSwKCiAgICAvLyBJbnN0cnVtZW50IDQ6IDEyLXN0ZXAgKGFuY2hvciBvbiBzdGVwcyAxLDQsNywxMCkKICAgIG4oIjcgfiB%2BIDcgfiB%2BIDUgfiB%2BIDMgfiB%2BIikuc2NhbGUoZ19zY2FsZSkuc291bmQoInN1cGVyc2F3IikuZ2FpbiguOCkKKTsKCi8vU3RlcCAyOiBDbGF1ZGUgYnVpbHRzIGEgbWVsb2R5IGZvciBJbnN0cnVtZW50IDMsIGtlZXBpbmcgaGFybW9ueSB3aXRoICBJbnN0cnVtZW50IDQsIAovLyBJIHByb2JhYmx5IGFza2VkIGl0IGZvciBhIGZldyBvZiB0aGVzZSBiZWZvcmUgd2UgZ290IG9uZSBJIGxpa2VkLgpjb25zdCBlbV9zdGVwMiA9IHN0YWNrKAoKICAgIG4oIjAgMiAxIDMiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fcGFkX3N3ZWVwIikuZ2FpbiguNiksCgogICAgbigiLTcgLTUgLTYgLTQiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fcGFkX3dhcm0iKS5nYWluKC42KSwKCiAgICBuKCItMiAtMSAwIDQgMyAyIDMgNCA1IDUgNCAzIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3N5bnRoX2Jhc3NfMSIpLmdhaW4oLjYpLAoKICAgIG4oIjcgfiAgfiAgNyB%2BIH4gNSB%2BIH4gMyB%2BIH4iKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgic3VwZXJzYXciKS5nYWluKC44KSwKICAKKTsKCi8vU3RlcCAzOiBDbGF1ZGUgYWRkcyBzb21lIHNpbXBsZSBzeW5jb3BhdGlvbiAocmFuZG9tbHkpIGtlZXBpbmcgaGFybW9ueSB3aXRoIEluc3RydW1lbnQgNAovLyBUaGlzIGNvbWVzIGZyb20gYSBsaXR0bGUgc2V0IG9mIGVkaXRzIEkgdGVsbCBjbGF1ZGUgaXQgY2FuIG1ha2UuIFRoaXMgY291bGQgYmUgbW9yZSBjb21wbGV4LCBidXQgaGVyZSB3ZSBzdGF5IHNpbXBsZS4KLy8gSSB0ZWxsIGl0IHRvIHBpY2sgcmFuZG9tbHkgYSBjb3VwbGUgb2YgdGhlc2UgdG8gYXBwbHkuCi8vICAgIG5vdGUgLT4gIFt%2BIG5vdGVdCi8vICAgIG5vdGUgLT4gIFtub3RlIH5dCi8vICAgIG5vdGUgLT4gIFtub3RlQDIgfl0KLy8gICAgbm90ZSAtPiAgW34gbm90ZUAyXQoKCmNvbnN0IGVtX3N0ZXAzID0gc3RhY2soCgogICAgbigiMCAyIDEgMyIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9wYWRfc3dlZXAiKS5nYWluKC42KSwKCiAgICBuKCItNyAtNSAtNiAtNCIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9wYWRfd2FybSIpLmdhaW4oLjYpLAoKICAgIG4oIi0yIFstMSB%2BXSAwIDQgMyBbfiAyQDJdIDMgNCBbNSB%2BXSA1IDQgMyIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9zeW50aF9iYXNzXzEiKS5nYWluKC42KSwKCiAgICBuKCI3IH4gfiA3IH4gfiA1IH4gfiAzIH4gfiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJzdXBlcnNhdyIpLmdhaW4oLjgpLAogIAopOwoKLy9TdGVwIDQ6IENsYXVkZSBhZGRzIGEgZmV3IG5vdGVzIHRvIEluc3RydW1lbnQgNCBhbmQgYWxzbyBzb21lIHN5bmNvcGF0aW9uLCAKLy8gYW5kIGhhcm1vbml6ZXMgYW55IG5vbi1hbmNob3Igc3RlcHMgd2l0aCBJbnN0cnVtZW50IDMKY29uc3QgZW1fc3RlcDQgPSBzdGFjaygKCiAgICBuKCIwIDIgMSAzIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3BhZF9zd2VlcCIpLmdhaW4oLjYpLAoKICAgIG4oIi03IC01IC02IC00Iikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3BhZF93YXJtIikuZ2FpbiguNiksCgogICAgbigiLTIgWy0xIH5dIDAgNCAzIFt%2BIDJAMl0gMyA0IFs1IH5dIDUgNCAzIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3N5bnRoX2Jhc3NfMSIpLmdhaW4oLjYpLAoKICAgIG4oIjcgfiBbfiA3QDJdIH4gNSB%2BIH4gNCB%2BIDMgMiAtMiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJzdXBlcnNhdyIpLmdhaW4oLjgpLAogIAopOwoKLy9TdGVwIDU6IENsYXVkZSAgYWRkcyBzb21lIHNpbXBsZSBzeW5jb3BhdGlvbiBmb3IgSW5zdHJ1bWVudHMgMSBhbmQgMgpjb25zdCBlbV9zdGVwNSA9IHN0YWNrKAoKICAgIG4oIjAgWzJAMiB%2BXSAxIDMiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fcGFkX3N3ZWVwIikuZ2FpbiguNiksCgogICAgbigiLTcgLTUgW34gLTZdIC00Iikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3BhZF93YXJtIikuZ2FpbiguNiksCgogICAgbigiLTIgWy0xIH5dIDAgNCAzIFt%2BIDJAMl0gMyA0IFs1IH5dIDUgNCAzIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3N5bnRoX2Jhc3NfMSIpLmdhaW4oLjYpLAoKICAgIG4oIjcgfiBbfiA3QDJdIH4gNSB%2BIH4gNCB%2BIDMgMiAtMiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJzdXBlcnNhdyIpLmdhaW4oLjgpLAogIAopOwoKLy9TdGVwIDU6IEkgYWRkZWQgcmV2ZXJiIHVzaW5nIHJvb20gdGhlbiBzaGFwZSgpIHRvIHNoYXJwZW4gdGhlIHNvdW5kCmNvbnN0IGVtX3N0ZXA2ID0gc3RhY2soCgogICAgbigiMCBbMkAyIH5dIDEgMyIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9wYWRfc3dlZXAiKS5nYWluKC42KS5yb29tKDIpLnNoYXBlKC4xKSwKCiAgICBuKCItNyAtNSBbfiAtNl0gLTQiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fcGFkX3dhcm0iKS5nYWluKC42KS5yb29tKDIpLnNoYXBlKC4xKSwKCiAgICBuKCItMiBbLTEgfl0gMCA0IDMgW34gMkAyXSAzIDQgWzUgfl0gNSA0IDMiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fc3ludGhfYmFzc18xIikuZ2FpbiguNikucm9vbSgyKS5zaGFwZSguMSksCgogICAgbigiNyB%2BIFt%2BIDdAMl0gfiA1IH4gfiA0IH4gMyAyIC0yIikuc2NhbGUoZ19zY2FsZSkuc291bmQoInN1cGVyc2F3IikuZ2FpbiguOCkuc2hhcGUoLjEpLAopOwoKLy9TdGVwIDU6IEFkZCBzb21lIGRydW1zIApjb25zdCBlbV9zdGVwNyA9IHN0YWNrKAoKICAgIG4oIjAgWzJAMiB%2BXSAxIDMiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fcGFkX3N3ZWVwIikuZ2FpbiguNikucm9vbSgyKS5zaGFwZSguMSksCgogICAgbigiLTcgLTUgW34gLTZdIC00Iikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3BhZF93YXJtIikuZ2FpbiguNikucm9vbSgyKS5zaGFwZSguMSksCgogICAgbigiLTIgWy0xIH5dIDAgNCAzIFt%2BIDJAMl0gMyA0IFs1IH5dIDUgNCAzIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3N5bnRoX2Jhc3NfMSIpLmdhaW4oLjYpLnJvb20oMikuc2hhcGUoLjEpLAoKICAgIG4oIjcgfiBbfiA3QDJdIH4gNSB%2BIH4gNCB%2BIDMgMiAtMiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJzdXBlcnNhdyIpLmdhaW4oLjgpLnNoYXBlKC4xKSwKCiAgICBzKCJbYmQgYmRdIDxoaCBvaCBoaD4gW2hoIGhoP10gPGJkIHNkPiBoaD8gPGhoIG9oPiBbYmQgYmRdIFtzZCBoaD9dIFs8aGggb2g%2BPyBiZF0gW3NkIDxzZCBjcD5dIGhoIDxoaCBvaD4iKS5nYWluKHJhbmQucmFuZ2UoMSwgMS42KSkKKTsKCgphcnJhbmdlKAogIFsyLCBlbV9zdGVwMF0sCiAgWzIsIGVtX3N0ZXAxXSwKICBbMiwgZW1fc3RlcDJdLAogIFsyLCBlbV9zdGVwM10sCiAgWzIsIGVtX3N0ZXA0XSwKICBbMiwgZW1fc3RlcDVdLAogIFsyLCBlbV9zdGVwNl0sCiAgWzEwLCBlbV9zdGVwN10sCiAgCikuc2xvdygxLjYp)**
-
-A complete walkthrough showing 7 development steps from basic piano chords to a full arrangement with drums. Demonstrates the collaborative process between human and LLM, including the exact prompts used to guide the composition process.
-
-#### 🎵 D Minor Composition Process
-**[📁 View Code](dminor_composition_process.js)** | **[▶️ Play Live on Strudel.cc](https://strudel.cc/#Ly0gRCBNaW5vciBDb21wb3NpdGlvbiBQcm9jZXNzIC0gRmluYWwgVmVyc2lvbiB3aXRoIFBpYW5vIEludHJvCi8vIENyZWF0ZWQgdXNpbmcgdGhlIGFuY2hvciBmcmFtZXdvcmsgbWV0aG9kb2xvZ3kgd2l0aCBkZXNjZW5kaW5nIG1lbG9keQoKY29uc3QgZ19zY2FsZSA9ICJEOm1pbm9yIgoKLy8gU3RlcCAwOiBCYXNpYyBwaWFubyBmcmFtZXdvcmsgd2l0aCBhbmNob3JzCmNvbnN0IGRtX3N0ZXAwID0gc3RhY2soCiAgICAvLyBJbnN0cnVtZW50IDE6IDQtc3RlcCBtZWxvZHkgbGluZQogICAgbigiMCAzIDQgMCIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJwaWFubyIpLmdhaW4oLjcpLAoKICAgIC8vIEluc3RydW1lbnQgMjogNC1zdGVwIGhhcm1vbml6aW5nIGxpbmUKICAgIG4oIjIgNSA2IDIiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgicGlhbm8iKS5nYWluKC41KSwKCiAgICAvLyBJbnN0cnVtZW50IDM6IDEyLXN0ZXAgKGFuY2hvciBvbiBzdGVwcyAxLDQsNywxMCkKICAgIG4oIjQgfiB%2BIDcgfiB%2BIDggfiB%2BIDQgfiB%2BIikuc2NhbGUoZ19zY2FsZSkuc291bmQoInBpYW5vIikuZ2FpbiguNSksCgogICAgLy8gSW5zdHJ1bWVudCA0OiAxMi1zdGVwIGJhc3MgKGFuY2hvciBvbiBzdGVwcyAxLDQsNywxMCkKICAgIG4oIi03IH4gfiAtNCB%2BIH4gLTMgfiB%2BIC03IH4gfiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJwaWFubyIpLmdhaW4oLjgpCik7CgovLyBTdGVwIDE6IEFkZCBkaWZmZXJlbnQgaW5zdHJ1bWVudHMKY29uc3QgZG1fc3RlcDEgPSBzdGFjaygKICAgIC8vIEluc3RydW1lbnQgMTogNC1zdGVwIG1lbG9keSBsaW5lIC0gd2FybSBwYWQKICAgIG4oIjAgMyA0IDAiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fcGFkX3dhcm0iKS5nYWluKC42KSwKCiAgICAvLyBJbnN0cnVtZW50IDI6IDQtc3RlcCBoYXJtb25pemluZyBsaW5lIC0gc3RyaW5ncwogICAgbigiMiA1IDYgMiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9zdHJpbmdfZW5zZW1ibGVfMSIpLmdhaW4oLjQpLAoKICAgIC8vIEluc3RydW1lbnQgMzogMTItc3RlcCAtIGVsZWN0cmljIGJhc3MgKGFuY2hvcnMgb25seSkKICAgIG4oIjQgfiB%2BIDcgfiB%2BIDggfiB%2BIDQgfiB%2BIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX2VsZWN0cmljX2Jhc3NfZmluZ2VyIikuZ2FpbiguNyksCgogICAgLy8gSW5zdHJ1bWVudCA0OiAxMi1zdGVwIGJhc3MgLSBzeW50aCBiYXNzIChhbmNob3JzIG9ubHkpCiAgICBuKCItNyB%2BIH4gLTQgfiB%2BIC0zIH4gfiAtNyB%2BIH4iKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgic3VwZXJzYXciKS5nYWluKC44KQopOwoKLy8gU3RlcCAyOiBBZGQgREVTQ0VORElORyBtZWxvZHkgdG8gSW5zdHJ1bWVudCAzLCBrZWVwaW5nIGFuY2hvciBoYXJtb255CmNvbnN0IGRtX3N0ZXAyID0gc3RhY2soCiAgICAvLyBJbnN0cnVtZW50IDE6IDQtc3RlcCBtZWxvZHkgbGluZQogICAgbigiMCAzIDQgMCIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9wYWRfd2FybSIpLmdhaW4oLjYpLAoKICAgIC8vIEluc3RydW1lbnQgMjogNC1zdGVwIGhhcm1vbml6aW5nIGxpbmUKICAgIG4oIjIgNSA2IDIiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fc3RyaW5nX2Vuc2VtYmxlXzEiKS5nYWluKC40KSwKCiAgICAvLyBJbnN0cnVtZW50IDM6IDEyLXN0ZXAgd2l0aCBERVNDRU5ESU5HIG1lbG9keSAtIG5ldyBhbmNob3JzOiA5LDcsNSwyCiAgICBuKCI5IDggNyA3IDYgNSA1IDQgMyAyIDEgMCIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9lbGVjdHJpY19iYXNzX2ZpbmdlciIpLmdhaW4oLjcpLAoKICAgIC8vIEluc3RydW1lbnQgNDogMTItc3RlcCBiYXNzIC0ga2VlcGluZyBhbmNob3JzCiAgICBuKCItNyB%2BIH4gLTQgfiB%2BIC0zIH4gfiAtNyB%2BIH4iKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgic3VwZXJzYXciKS5nYWluKC44KQopOwoKLy8gU3RlcCAzOiBBZGQgc3luY29wYXRpb24gdG8gSW5zdHJ1bWVudCAzIHVzaW5nIHRoZSBzdGFuZGFyZCB0cmFuc2Zvcm1zOgovLyAgICBub3RlIC0%2BICBbfiBub3RlXQovLyAgICBub3RlIC0%2BICBbbm90ZSB%2BXQovLyAgICBub3RlIC0%2BICBbbm90ZUAyIH5dCi8vICAgIG5vdGUgLT4gIFt%2BIG5vdGVAMl0KY29uc3QgZG1fc3RlcDMgPSBzdGFjaygKICAgIC8vIEluc3RydW1lbnQgMTogNC1zdGVwIG1lbG9keSBsaW5lCiAgICBuKCIwIDMgNCAwIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3BhZF93YXJtIikuZ2FpbiguNiksCgogICAgLy8gSW5zdHJ1bWVudCAyOiA0LXN0ZXAgaGFybW9uaXppbmcgbGluZQogICAgbigiMiA1IDYgMiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9zdHJpbmdfZW5zZW1ibGVfMSIpLmdhaW4oLjQpLAoKICAgIC8vIEluc3RydW1lbnQgMzogMTItc3RlcCB3aXRoIHN5bmNvcGF0aW9uIC0gcmFuZG9tbHkgYXBwbGllZCB0cmFuc2Zvcm1zCiAgICBuKCI5IFs4IH5dIDcgNyBbfiA2QDJdIDUgNSA0IFszIH5dIDIgMSAwIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX2VsZWN0cmljX2Jhc3NfZmluZ2VyIikuZ2FpbiguNyksCgogICAgLy8gSW5zdHJ1bWVudCA0OiAxMi1zdGVwIGJhc3MgLSBrZWVwaW5nIGFuY2hvcnMKICAgIG4oIi03IH4gfiAtNCB%2BIH4gLTMgfiB%2BIC03IH4gfiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJzdXBlcnNhdyIpLmdhaW4oLjgpCik7CgovLyBTdGVwIDQ6IEFkZCBzcGFyc2UgbWVsb2R5IHRvIGluc3RydW1lbnQgNCwgZWNob2luZyBpbnN0cnVtZW50IDMncyBzeW5jb3BhdGlvbgpjb25zdCBkbV9zdGVwNCA9IHN0YWNrKAogICAgLy8gSW5zdHJ1bWVudCAxOiA0LXN0ZXAgbWVsb2R5IGxpbmUKICAgIG4oIjAgMyA0IDAiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fcGFkX3dhcm0iKS5nYWluKC42KSwKCiAgICAvLyBJbnN0cnVtZW50IDI6IDQtc3RlcCBoYXJtb25pemluZyBsaW5lCiAgICBuKCIyIDUgNiAyIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3N0cmluZ19lbnNlbWJsZV8xIikuZ2FpbiguNCksCgogICAgLy8gSW5zdHJ1bWVudCAzOiAxMi1zdGVwIHdpdGggc3luY29wYXRpb24KICAgIG4oIjkgWzggfl0gNyA3IFt%2BIDZAMl0gNSA1IDQgWzMgfl0gMiAxIDAiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fZWxlY3RyaWNfYmFzc19maW5nZXIiKS5nYWluKC43KSwKCiAgICAvLyBJbnN0cnVtZW50IDQ6IDEyLXN0ZXAgYmFzcyB3aXRoIHNwYXJzZSBtZWxvZHkgLSBlY2hvaW5nIHN5bmNvcGF0aW9uCiAgICBuKCItNyB%2BIFstNiB%2BXSAtNCB%2BIC01IC0zIC00IH4gLTcgWy04IH5dIC05Iikuc2NhbGUoZ19zY2FsZSkuc291bmQoInN1cGVyc2F3IikuZ2FpbiguOCkKKTsKCi8vIFN0ZXAgNTogQWRkIHN5bmNvcGF0aW9uIHRvIEluc3RydW1lbnRzIDEgYW5kIDIKY29uc3QgZG1fc3RlcDUgPSBzdGFjaygKICAgIC8vIEluc3RydW1lbnQgMTogNC1zdGVwIG1lbG9keSB3aXRoIHN5bmNvcGF0aW9uCiAgICBuKCIwIFszIH5dIDQgMCIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9wYWRfd2FybSIpLmdhaW4oLjYpLAoKICAgIC8vIEluc3RydW1lbnQgMjogNC1zdGVwIGhhcm1vbnkgd2l0aCBzeW5jb3BhdGlvbgogICAgbigiMiA1IFt%2BIDZAMl0gMiIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9zdHJpbmdfZW5zZW1ibGVfMSIpLmdhaW4oLjQpLAoKICAgIC8vIEluc3RydW1lbnQgMzogMTItc3RlcCB3aXRoIHN5bmNvcGF0aW9uCiAgICBuKCI5IFs4IH5dIDcgNyBbfiA2QDJdIDUgNSA0IFszIH5dIDIgMSAwIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX2VsZWN0cmljX2Jhc3NfZmluZ2VyIikuZ2FpbiguNyksCgogICAgLy8gSW5zdHJ1bWVudCA0OiAxMi1zdGVwIGJhc3Mgd2l0aCBzcGFyc2UgbWVsb2R5CiAgICBuKCItNyB%2BIFstNiB%2BXSAtNCB%2BIC01IC0zIC00IH4gLTcgWy04IH5dIC05Iikuc2NhbGUoZ19zY2FsZSkuc291bmQoInN1cGVyc2F3IikuZ2FpbiguOCkKKTsKCi8vIFN0ZXAgNjogQWRkIHJldmVyYiBhbmQgZWZmZWN0cwpjb25zdCBkbV9zdGVwNiA9IHN0YWNrKAogICAgLy8gSW5zdHJ1bWVudCAxOiA0LXN0ZXAgbWVsb2R5IHdpdGggcmV2ZXJiCiAgICBuKCIwIFszIH5dIDQgMCIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJnbV9wYWRfd2FybSIpLmdhaW4oLjYpLnJvb20oMikuc2hhcGUoLjEpLAoKICAgIC8vIEluc3RydW1lbnQgMjogNC1zdGVwIGhhcm1vbnkgd2l0aCByZXZlcmIKICAgIG4oIjIgNSBbfiA2QDJdIDIiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fc3RyaW5nX2Vuc2VtYmxlXzEiKS5nYWluKC40KS5yb29tKDIpLnNoYXBlKC4xKSwKCiAgICAvLyBJbnN0cnVtZW50IDM6IDEyLXN0ZXAgd2l0aCByZXZlcmIKICAgIG4oIjkgWzggfl0gNyA3IFt%2BIDZAMl0gNSA1IDQgWzMgfl0gMiAxIDAiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fZWxlY3RyaWNfYmFzc19maW5nZXIiKS5nYWluKC43KS5yb29tKDIpLnNoYXBlKC4xKSwKCiAgICAvLyBJbnN0cnVtZW50IDQ6IDEyLXN0ZXAgYmFzcyB3aXRoIHNoYXBlCiAgICBuKCItNyB%2BIFstNiB%2BXSAtNCB%2BIC01IC0zIC00IH4gLTcgWy04IH5dIC05Iikuc2NhbGUoZ19zY2FsZSkuc291bmQoInN1cGVyc2F3IikuZ2FpbiguOCkuc2hhcGUoLjEpCik7CgovLyBTdGVwIDc6IEFkZCBkcnVtcyBmb3IgdGhlIGZ1bGwgY29tcG9zaXRpb24KY29uc3QgZG1fc3RlcDcgPSBzdGFjaygKICAgIC8vIEluc3RydW1lbnQgMTogNC1zdGVwIG1lbG9keSB3aXRoIHJldmVyYgogICAgbigiMCBbMyB%2BXSA0IDAiKS5zY2FsZShnX3NjYWxlKS5zb3VuZCgiZ21fcGFkX3dhcm0iKS5nYWluKC42KS5yb29tKDIpLnNoYXBlKC4xKSwKCiAgICAvLyBJbnN0cnVtZW50IDI6IDQtc3RlcCBoYXJtb255IHdpdGggcmV2ZXJiCiAgICBuKCIyIDUgW34gNkAyXSAyIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX3N0cmluZ19lbnNlbWJsZV8xIikuZ2FpbiguNCkucm9vbSgyKS5zaGFwZSguMSksCgogICAgLy8gSW5zdHJ1bWVudCAzOiAxMi1zdGVwIHdpdGggcmV2ZXJiCiAgICBuKCI5IFs4IH5dIDcgNyBbfiA2QDJdIDUgNSA0IFszIH5dIDIgMSAwIikuc2NhbGUoZ19zY2FsZSkuc291bmQoImdtX2VsZWN0cmljX2Jhc3NfZmluZ2VyIikuZ2FpbiguNykucm9vbSgyKS5zaGFwZSguMSksCgogICAgLy8gSW5zdHJ1bWVudCA0OiAxMi1zdGVwIGJhc3Mgd2l0aCBzaGFwZQogICAgbigiLTcgfiBbLTYgfl0gLTQgfiAtNSAtMyAtNCB%2BIC03IFstOCB%2BXSAtOSIpLnNjYWxlKGdfc2NhbGUpLnNvdW5kKCJzdXBlcnNhdyIpLmdhaW4oLjgpLnNoYXBlKC4xKSwKCiAgICAvLyBEcnVtczogQ29tcGxleCBwYXR0ZXJuIHdpdGggc3RlYWR5IGdhaW4KICAgIHMoIltiZCBiZF0gPGhoIG9oIGhoPiBbaGggaGg%2FXSA8YmQgc2Q%2BIGhoPyA8aGggb2g%2BIFtiZCBiZF0gW3NkIGhoP10gWzxoaCBvaD4%2FIGJkXSBbc2QgPHNkIGNwPl0gaGggPGhoIG9oPiIpLmdhaW4oMSkKKTsKCi8vIEZpbmFsIGFycmFuZ2VtZW50IC0gc2hvd2Nhc2luZyB0aGUgY29tcGxldGUgZGV2ZWxvcG1lbnQgcHJvY2VzcwphcnJhbmdlKAogIFsyLCBkbV9zdGVwMF0sICAvLyBCYXNpYyBwaWFubyBmcmFtZXdvcmsKICBbMiwgZG1fc3RlcDFdLCAgLy8gRGlmZmVyZW50IGluc3RydW1lbnRzIHdpdGggYW5jaG9ycwogIFsyLCBkbV9zdGVwMl0sICAvLyBEZXNjZW5kaW5nIG1lbG9keSBhZGRlZAogIFsyLCBkbV9zdGVwM10sICAvLyBTeW5jb3BhdGlvbiBpbiBpbnN0cnVtZW50IDMKICBbMiwgZG1fc3RlcDRdLCAgLy8gTWVsb2R5IGFkZGVkIHRvIGluc3RydW1lbnQgNAogIFsyLCBkbV9zdGVwNV0sICAvLyBTeW5jb3BhdGlvbiBpbiBpbnN0cnVtZW50cyAxJjIKICBbMiwgZG1fc3RlcDZdLCAgLy8gRWZmZWN0cyBhZGRlZAogIFsxMCwgZG1fc3RlcDddICAvLyBGdWxsIGNvbXBvc2l0aW9uIHdpdGggZHJ1bXMKKS5zbG93KDEuNik%3D)**
-
-Features a descending melody approach and demonstrates alternative melodic development techniques within the same harmonic framework. Shows how the anchor system adapts to different compositional goals.
-
-### Implementation Strategy:
-1. **4-instrument stack**: 2 instruments with 4 steps (chord progression), 2 instruments with 12 steps (melody lines)
-2. **Harmonic anchors**: Fast instruments harmonize on every 3rd step with slower harmonic rhythm
-3. **Progressive development**: From basic chords → melodies → syncopation → effects → drums
-4. **Traditional techniques**: Chord progressions, voice leading, counterpoint, rhythmic variation
-
-**Important Note**: These are **very simple examples** that demonstrate basic composition principles. However, they showcase how **proficient LLMs are at composition assistance** - understanding harmony, melody writing, voice leading, and traditional music theory concepts when given proper documentation and context.
-
-## Example Composition Structure
-
-```javascript
-const composition = stack(
-    // Instrument 1: 4-step chord progression
-    n("0 2 1 3").scale("E:minor").sound("gm_pad_sweep"),
-
-    // Instrument 2: 4-step harmonizing bass
-    n("-7 -5 -6 -4").scale("E:minor").sound("gm_pad_warm"),
-
-    // Instrument 3: 12-step melody (anchors on 1,4,7,10)
-    n("-2 -1 0 4 3 2 3 4 5 5 4 3").scale("E:minor").sound("gm_synth_bass_1"),
-
-    // Instrument 4: 12-step counter-melody
-    n("7 ~ ~ 7 ~ ~ 5 ~ ~ 3 ~ ~").scale("E:minor").sound("supersaw")
-);
 ```
+https://strudel-llm.mcp.mathplosion.com/sse
+```
+
+The server also hosts a User Interface that is here:
+
+```
+https://strudel-llm.mcp.mathplosion.com/strudel
+```
+
+This User Interface has a session ID that you copy and paste to your LLM so it can communicate with the webpage. The MCP server communicates via websockets to this front-end Strudel web UI, which is a LLM-aware clone of the regular Strudel REPL.
+
+### Tools Available in the MCP Server
+
+It exposes the following tools to your LLM:
+
+- **`play_code`** — send Strudel code to the browser and play it
+- **`stop_play`** — stop the current playback
+- **`get_currently_playing_code`** — retrieve the code currently in the editor
+- **`get_mcp_status`** — check the status of the session
+
+The MCP server and its web UI are described in this repo: https://github.com/calvinw/strudel-llm-mirror
 
 ---
 
-**Get started by reading [CLAUDE.md](CLAUDE.md) for complete setup and usage instructions!**
+## Running in the Github Codespace (or devcontainer)
+
+The easiest way to get started — no local install needed. When the Codespace starts, the Strudel MCP server and composition skills are automatically installed and configured for all AI agents (Claude Code, OpenCode, Gemini, Codex, etc.).
+
+> The devcontainer in this repo inherits its Dockerfile from https://github.com/calvinw/ai-agentic-tools — see there for more info on the agentic tools container idea.
+
+### Step 1
+Go to https://github.com/calvinw/strudel-llm-docs and create a Codespace on the repo.
+
+### Step 2
+In a separate browser window, open the Strudel UI:
+https://strudel-llm.mcp.mathplosion.com/strudel
+
+This is the UI part of the Strudel MCP server that the LLM will communicate with to play compositions. It is a LLM-aware clone of the regular Strudel REPL.
+
+### Step 3
+In the Codespace terminal, start Claude Code or OpenCode:
+```
+% claude.sh      # this runs a yolo version of claude, you can just type "claude" if you like
+```
+or
+```
+% opencode.sh    # this runs a yolo version of opencode, you can just type "opencode" if you like
+```
+
+### Step 4
+Copy the **session ID** shown in the Strudel window (e.g., `b8t7`) and paste it into Claude Code or OpenCode.
+
+![session ID example](docs/images/sessionid.png)
+
+### Step 5
+Ask it to play you some Strudel music!
+
+---
+
+## Using Online Strudel Docs As Examples
+
+You can paste any Strudel documentation page anywhere on the web into Claude Code or OpenCode, etc and ask it to play the examples from that webpage - a great way to learn Strudel interactively. For example try this:
+- https://strudel.cc/workshop/getting-started/
+
+---
+
+## Running Locally Using Claude Code, OpenCode, etc.
+
+### Step 1
+Clone the repository and enter it:
+```bash
+git clone https://github.com/calvinw/strudel-llm-docs.git
+cd strudel-llm-docs
+```
+
+### Step 2
+Connect the Strudel MCP server.
+
+The project includes a `.mcp.json` file that **Claude Code picks up automatically** — no extra install needed. Just start Claude Code from inside the project directory.
+
+For **OpenCode** (or to install explicitly for Claude Code), run the install script:
+```bash
+./local-setup/install_strudel_mcp_claude.sh
+```
+
+This registers the remote MCP server at:
+```
+https://strudel-llm.mcp.mathplosion.com/sse
+```
+
+### Step 3
+Install the composition skills (so `/anchor-framework` and `/syncopations` work in your AI tool):
+```bash
+./local-setup/install_skills.sh
+```
+
+### Step 4
+In a separate browser window, open the Strudel UI:
+https://strudel-llm.mcp.mathplosion.com/strudel
+
+### Step 5
+Start your AI coding tool from inside the project directory:
+```
+% claude
+```
+or
+```
+% opencode
+```
+
+### Step 6
+Copy the **session ID** from the Strudel window and paste it in.
+
+### Step 7
+Ask it to play you some Strudel music!
+
+---
+
+## Running as a Connector in Claude.ai or Mistral.ai
+
+Both Claude.ai and Mistral.ai support remote MCP servers as connectors, letting you use the Strudel MCP directly from the chat UI — no terminal required.
+
+Add the following SSE URL as a connector/MCP server in your Claude.ai or Mistral.ai settings:
+```
+https://strudel-llm.mcp.mathplosion.com/sse
+```
+
+Then open the Strudel UI in another window, copy the session ID, and paste it into the chat. From there the workflow is the same — ask it to play Strudel music!
+
+*(Images showing the Claude.ai and Mistral.ai connector setup coming soon.)*
+
+---
+
+## Composition Skills
+
+This repo includes two composition skills in `.skillshare/skills/` that are automatically available in your AI tool once installed. Trigger them with a slash command:
+
+### `/anchor-framework KEY`
+
+Guides your LLM through building a Strudel composition step by step using the **Anchor Framework** — a 4-instrument stack where two instruments play a 4-step harmonic progression and two play 12-step melodies that lock onto the harmony every 3rd step (the "anchor points"). The skill walks through all 5 development stages from bare piano chords to a full arrangement with syncopation, effects, and drums.
+
+Example: `/anchor-framework E:minor`
+
+See: [`.skillshare/skills/anchor-framework/SKILL.md`](.skillshare/skills/anchor-framework/SKILL.md)
+
+### `/syncopations`
+
+Returns the standard set of mini-notation rhythm transforms used to add syncopation to note patterns — delayed entries, early cutoffs, and held notes. Used as a reference within the anchor-framework workflow.
+
+Example: `/syncopations`
+
+See: [`.skillshare/skills/syncopations/SKILL.md`](.skillshare/skills/syncopations/SKILL.md)
+
+---
+
+## Working with Skills
+
+All skill editing happens in `.skillshare/skills/`. Never edit agent config directories (`.claude/`, `.opencode/`, etc.) directly — those are managed automatically by `skillshare sync`.
+
+After editing any skill, run:
+
+```bash
+skillshare sync
+```
+
+This propagates your changes to all configured AI tools (Claude Code, OpenCode, Gemini, Codex, etc.).
+
+It is recommended to use the **skillshare CLI** to manage skills:
+- CLI repo: https://github.com/runkids/skillshare
