@@ -1,4 +1,4 @@
 {
   "image": "ghcr.io/calvinw/ai-course-devcontainer:latest",
-  "postCreateCommand": "setup-env.sh && install-mcps.sh && setup-skills.sh && sync-skills.sh || true"
+  "postCreateCommand": "setup-env.sh && install-mcps.sh && setup-skills.sh && sync-skills.sh || true && if [ -f ~/.claude.json ]; then jq '. + {\"hasCompletedOnboarding\":true,\"installMethod\":\"native\"}' ~/.claude.json > /tmp/claude.json && mv /tmp/claude.json ~/.claude.json; else echo '{\"hasCompletedOnboarding\":true,\"installMethod\":\"native\"}' > ~/.claude.json; fi"
 }
